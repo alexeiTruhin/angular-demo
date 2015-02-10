@@ -16,7 +16,7 @@ app.get("/data/", function(req, res) {
   console.log('data request!');
   console.log(req.query);
   fData = filterData(JSON.parse(jsonFile), req.query);
-  res.send(fData)
+  res.send(fData);
 });
 
 /* serves all the static files */

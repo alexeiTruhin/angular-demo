@@ -18,19 +18,25 @@ psgControllers.controller('psgCtrl', ['$scope', 'Data', '$location', '$route', '
     */
     $scope.param = {};
 
-    // initialize param with params from url
-    $scope.param = initParam();
-
     /* $scope.url Structure :
         '<facet1>=<option1>,<option2>, ... <optionX>&<facet2>= ...'
     */
     $scope.url = '';
 
-    // initialize url variable with $location.url
-    $scope.url = initUrl();
+    // $scope.data.<products,facets,facetOrder>
+    $scope.data = {};
 
-    // GET data from server. $scope.data.<products,facets,facetOrder>
-    $scope.data = Data.get({url: $scope.url});
+
+    // on init and change url
+    $scope.$on('$locationChangeSuccess', function(next, current) {
+      // initialize param with params from url
+      $scope.param = initParam();
+      // initialize url variable with $location.url
+      $scope.url = initUrl();
+      // GET data from server.
+      getData($scope.url);
+    });
+
 
     // --------- Initialization END -------------- //
 
@@ -54,7 +60,7 @@ psgControllers.controller('psgCtrl', ['$scope', 'Data', '$location', '$route', '
       updateUrl();
 
       // update data based on new url
-      $scope.data= Data.get({url: $scope.url});
+      getData($scope.url);
     };
 
 
@@ -75,6 +81,37 @@ psgControllers.controller('psgCtrl', ['$scope', 'Data', '$location', '$route', '
       $location.url('?' + $scope.url);
     };
 
+    function getData(url) {
+      // $scope.data.<products,facets,facetOrder>
+      Data.get({url: url}, function(data) {
+        $scope.data.products = data.products;
+        $scope.data.facets = data.facets;
+        $scope.data.facetOrder = data.facetOrder;
+        addCheckboxes($scope.data.facets, $scope.param);
+        //console.log($scope.data.facets)
+      });
+    }
+
+    function addCheckboxes(facets, param) {
+      var f;
+      var facet;
+      var o;
+      var p;
+      var pm;
+      for (f in facets) {
+        facet = facets[f];
+        if (typeof facet.options !== 'undefined')
+          for (o in facet.options) {
+            facet.options[o] = [facet.options[o]];
+            if (typeof param[f] !== 'undefined' && param[f].indexOf(facet.options[o][0]) > -1) {
+              facet.options[o].push(true);
+            } else {
+              facet.options[o].push(false);
+            }
+          }
+      }
+    }
+
     function initParam() {
       var locParam = $location.search();
       var p;
@@ -83,11 +120,11 @@ psgControllers.controller('psgCtrl', ['$scope', 'Data', '$location', '$route', '
         locParam[p] = locParam[p].split(',');
       };
 
+      // add checkbox: true to $scope.data.facetOrder
       return locParam;
     };
 
     function initUrl() {
        return '' + $location.url().substring(1, $location.url().length);
     }
-
   }]);

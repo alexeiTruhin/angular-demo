@@ -25,7 +25,8 @@
 
             <p ng-repeat="option in data.facets[facet].options">
               <label>
-                <input type="checkbox" ng-click="toggleParam(facet, option)"/>{{option}}
+                <input type="checkbox" ng-click="toggleParam(facet, option[0])" ng-checked="option[1]"/>
+                {{option[0]}}
               </label>
             </p>
           </th>
