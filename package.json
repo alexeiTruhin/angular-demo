@@ -1,0 +1,15 @@
+{
+  "name": "angular-demo",
+  "version": "0.0.1",
+  "description": "Example of angular ussage ",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "keywords": [
+    "angular"
+  ],
+  "author": "Alexei Truhin",
+  "dependencies": {
+    "express": "~4.11.2"
+  }
+}

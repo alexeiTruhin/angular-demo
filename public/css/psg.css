@@ -1,0 +1,17 @@
+.psgTable {
+  /*border: 1px solid #000;*/
+  border-collapse: collapse;
+  margin: 60px auto 0;
+  table-layout: fixed;
+  width: 100%
+}
+
+.psgTable th,
+.psgTable td {
+  border: 1px solid #000;
+  padding: 10px;
+}
+
+.psgTable th {
+  background: #ccc;
+}

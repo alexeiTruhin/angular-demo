@@ -1,0 +1,91 @@
+{
+  "products":[
+    {
+      "id":"CY8C3244AXI-153 Datasheet",
+      "status":"In Production",
+      "digital_block": "16",
+      "gpio": "62",
+      "minV": "1.71",
+      "maxV": "5.5"
+    },
+    {
+      "id":"CY8C3244AXI-153T Datasheet",
+      "status":"In Production",
+      "digital_block": "16",
+      "gpio": "25",
+      "minV": "1.71",
+      "maxV": "5.5"
+    },
+    {
+      "id":"CY8C3244LTI-123 Datasheet",
+      "status":"In Production",
+      "digital_block": "20",
+      "gpio": "38",
+      "minV": "1.71",
+      "maxV": "5.5"
+    },
+    {
+      "id":"CY8C3244LTI-123T Datasheet",
+      "status":"In Production",
+      "digital_block": "20",
+      "gpio": "25",
+      "minV": "1.71",
+      "maxV": "5.5"
+    },
+    {
+      "id":"CY8C3244LTI-130 Datasheet",
+      "status":"In Production",
+      "digital_block": "16",
+      "gpio": "38",
+      "minV": "1.71",
+      "maxV": "5.5"
+    }
+  ],
+  "facets":{
+    "id": {
+      "name": "Part Number"
+    },
+    "status": {
+      "options": [
+        "In Production",
+        "Out of Production"
+      ],
+      "name": "Status"
+    },
+    "digital_block": {
+      "options": [
+        "16",
+        "20"
+      ],
+      "name": "No. of Programmable Universal Digital Blocks"
+    },
+    "gpio":{
+      "options": [
+        "25",
+        "38",
+        "62"
+      ],
+      "name": "No. of GPIOs"
+    },
+    "minV":{
+      "options": [
+        "1.71"
+      ],
+      "name": "Min. Operating Voltage (V)"
+    },
+    "maxV":{
+      "options": [
+        "5.5"
+      ],
+      "name": "Max. Operating Voltage (V)"
+    }
+  },
+  "facetOrder": [
+    "id",
+    "status",
+    "digital_block",
+    "gpio",
+    "minV",
+    "maxV"
+  ]
+}
