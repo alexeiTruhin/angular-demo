@@ -27,7 +27,7 @@ psgControllers.controller('psgCtrl', ['$scope', 'Data', '$location', '$route', '
     $scope.data = {};
 
 
-    // on init and change url
+    // on init and change of location (url)
     $scope.$on('$locationChangeSuccess', function(next, current) {
       // initialize param with params from url
       $scope.param = initParam();
@@ -41,7 +41,8 @@ psgControllers.controller('psgCtrl', ['$scope', 'Data', '$location', '$route', '
     // --------- Initialization END -------------- //
 
 
-
+    // change parameters from facet.
+    // *used on facet's options click.
     $scope.toggleParam = function (facet, option) {
       // if param[facet] doesn't exist, init with an empty array
       if (typeof $scope.param[facet] === 'undefined') {
@@ -57,13 +58,13 @@ psgControllers.controller('psgCtrl', ['$scope', 'Data', '$location', '$route', '
       }
 
       // update url
-      updateUrl();
+      $scope.url = updateUrl();
 
       // update data based on new url
       getData($scope.url);
     };
 
-
+    // update url prameter and location
     function updateUrl() {
       $scope.url = '';
 
@@ -79,6 +80,8 @@ psgControllers.controller('psgCtrl', ['$scope', 'Data', '$location', '$route', '
       }
 
       $location.url('?' + $scope.url);
+
+      return $scope.url;
     };
 
     function getData(url) {
@@ -88,16 +91,35 @@ psgControllers.controller('psgCtrl', ['$scope', 'Data', '$location', '$route', '
         $scope.data.facets = data.facets;
         $scope.data.facetOrder = data.facetOrder;
         addCheckboxes($scope.data.facets, $scope.param);
-        //console.log($scope.data.facets)
       });
     }
 
+    // add checkbox state of options' checkboxes
     function addCheckboxes(facets, param) {
-      var f;
-      var facet;
-      var o;
-      var p;
-      var pm;
+      /*
+        facets: {
+          <facet1>: {
+            name: <str_name>,
+            options: [
+              <str_option1>,
+              <str_option2>,
+              ...
+            ]
+          }
+          <facet2>: {...}
+          ...
+        }
+        param: {
+          <facet1> : [<option1>, <option2>, ... <optionX>],
+          <facet2> : [<option1>, <option2>, ... <optionX>],
+          ...
+          <facetY> : [<option1>, <option2>, ... <optionX>]
+        }
+      */
+
+      var f; // '<facetX>'
+      var facet; // facets[<facetX>]
+      var o; // facets[<facetX>].options.indexOf(<str_iptionX>)
       for (f in facets) {
         facet = facets[f];
         if (typeof facet.options !== 'undefined')
