@@ -6,6 +6,8 @@ var psgControllers = angular.module('psgControllers', []);
 
 psgControllers.controller('psgCtrl', ['$scope', 'Data', '$location', '$route', '$routeParams',
   function($scope, Data, $location, $route, $routeParams) {
+    // --------- Initialization BEGIN -------------- //
+
     /* $scope.param Structure :
         {
           <facet1> : [<option1>, <option2>, ... <optionX>],
@@ -16,24 +18,21 @@ psgControllers.controller('psgCtrl', ['$scope', 'Data', '$location', '$route', '
     */
     $scope.param = {};
 
+    // initialize param with params from url
+    $scope.param = initParam();
+
     /* $scope.url Structure :
         '<facet1>=<option1>,<option2>, ... <optionX>&<facet2>= ...'
     */
     $scope.url = '';
 
-    $scope.data = Data.query(); // Data.query().<products,facets,facetOrder>
+    // initialize url variable with $location.url
+    $scope.url = initUrl();
 
+    // GET data from server. $scope.data.<products,facets,facetOrder>
+    $scope.data = Data.get({url: $scope.url});
 
-
-
-
-
-
-
-
-
-
-
+    // --------- Initialization END -------------- //
 
 
 
@@ -51,26 +50,15 @@ psgControllers.controller('psgCtrl', ['$scope', 'Data', '$location', '$route', '
         $scope.param[facet].push(option);
       }
 
-      $scope.updateUrl()
+      // update url
+      updateUrl();
 
+      // update data based on new url
       $scope.data= Data.get({url: $scope.url});
-      $location.url('?' + $scope.url);
-
-
-      // consoling for testing
-      //console.log($location.search());
-/*      console.log($location.url());
-      console.log($scope.url);
-      console.log($location.path() );
-
-      for ( i in $scope.data.facetOrder) {
-        if (typeof $scope.param[$scope.data.facetOrder[i]] !== 'undefined') {
-          console.log($scope.data.facetOrder[i], $scope.param[$scope.data.facetOrder[i]]);
-        }
-      }*/
     };
 
-    $scope.updateUrl = function () {
+
+    function updateUrl() {
       $scope.url = '';
 
       var p;
@@ -83,6 +71,23 @@ psgControllers.controller('psgCtrl', ['$scope', 'Data', '$location', '$route', '
       if ($scope.url.length) {
         $scope.url = $scope.url.substring(0, $scope.url.length - 1);
       }
+
+      $location.url('?' + $scope.url);
     };
+
+    function initParam() {
+      var locParam = $location.search();
+      var p;
+
+      for (p in locParam) {
+        locParam[p] = locParam[p].split(',');
+      };
+
+      return locParam;
+    };
+
+    function initUrl() {
+       return '' + $location.url().substring(1, $location.url().length);
+    }
 
   }]);
