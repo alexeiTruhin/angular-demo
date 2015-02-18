@@ -203,6 +203,24 @@ psgControllers.controller('psgCtrl', ['$scope', 'Data', '$location', '$route', '
        return '' + $location.url().substring(1, $location.url().length);
     }
 
+    // add/change order depending on facet.
+    // *used on order setter click.
+    // *options: ascending, descending
+    $scope.setOrder = function (facet, order) {
+      // if param[facet] doesn't exist, init with an empty array
+      if (typeof $scope.param[facet] === 'undefined') {
+        $scope.param['_order'] = [];
+      }
+
+      $scope.param['_order'] = [facet, order];
+
+      // update url
+      $scope.url = $scope.updateUrl();
+
+      // update data based on new url
+      //getData($scope.url);
+    };
+
     //-------- HELPER functions -------//
 
     // returns min value of array

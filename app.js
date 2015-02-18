@@ -78,5 +78,19 @@ function filterData(data, params) {
     data.products.splice(del[d] - d, 1);
   }
 
+  // Order
+  if (typeof params['_order'] !== 'undefined') {
+    var facet = params['_order'][0];
+    var order = params['_order'][1];
+    if (typeof data.facets[facet] !== 'undefined') {
+        data.products.sort(function(a, b) {
+          return a[facet] > b[facet];
+        });
+      if (order == 'desc') {
+        data.products.reverse();
+      }
+    }
+  }
+
   return data;
 }

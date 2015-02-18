@@ -14,6 +14,8 @@
 
 .psgTable th {
   background: #ccc;
+  position: relative;
+  padding-bottom: 30px;
 }
 
 /* rangeSlider */
@@ -29,4 +31,11 @@
 .ngrs-join {
   left: 50% !important;
   right: 50% !important;
+}
+
+.psgTable th .order {
+  position: absolute;
+  bottom: 0;
+  text-align: center;
+  width: 90%;
 }
