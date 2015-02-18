@@ -3,3 +3,6 @@ node_modules/
 
 #design Image
 Cypress PSG.png
+
+#logs
+*.log
