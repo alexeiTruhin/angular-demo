@@ -3,16 +3,17 @@
 <head>
   <meta charset="utf-8">
   <title>PSG</title>
+  <link rel="stylesheet" href="css/angular.rangeSlider.css">
   <link rel="stylesheet" href="css/psg.css">
+  <script src="js/jQuery/jquery-1.11.2.min.js"></script>
   <script src="js/angular/angular.js"></script>
   <script src="js/angular/angular-route.js"></script>
   <script src="js/angular/angular-resource.js"></script>
+  <script src="js/angular.rangeSlider.js"></script>
   <script src="js/app.js"></script>
   <script src="js/controllers.js"></script>
   <script src="js/services.js"></script>
-<!--
-  <script src="js/filters.js"></script>
--->
+  <script src="js/directives.js"></script>
 </head>
 <body>
 
@@ -20,19 +21,12 @@
     <div ng-controller="psgCtrl">
       <table class="psgTable">
         <tr>
-          <th ng-repeat="facet in data.facetOrder">
-            {{data.facets[facet].name}}
-
-            <p ng-repeat="option in data.facets[facet].options">
-              <label>
-                <input type="checkbox" ng-click="toggleParam(facet, option[0])" ng-checked="option[1]"/>
-                {{option[0]}}
-              </label>
-            </p>
+          <th ng-repeat="facet in data.facetOrder" class="applyFilters">
           </th>
         </tr>
         <tr ng-repeat="product in data.products">
-          <td ng-repeat="facet in data.facetOrder">{{product[facet]}}</td>
+          <td ng-repeat="facet in data.facetOrder" data='data'>{{product[facet]}}
+          </td>
         </tr>
       </table>
     </div>

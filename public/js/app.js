@@ -4,6 +4,8 @@ var psgApp = angular.module('psgApp', [
   'ngRoute',
   'ngResource',
   'psgControllers',
-  'psgServices'
+  'psgServices',
+  'psgDirectives',
+  'ui-rangeSlider'
 ]);
 

@@ -17,6 +17,8 @@ app.get("/data/", function(req, res) {
   console.log(req.query);
   fData = filterData(JSON.parse(jsonFile), req.query);
   res.send(fData);
+  setTimeout(function() {
+  }, 1000);
 });
 
 /* serves all the static files */
@@ -40,6 +42,7 @@ function filterData(data, params) {
     if (params[p] === '') {
       delete params[p];
     } else {
+      params[p] = decodeURIComponent(params[p]);
       params[p] = params[p].split(','); // transform string into array
     }
   }
@@ -48,13 +51,24 @@ function filterData(data, params) {
   var prop;
   var index;
   var del = []; // delete
+  var min, max, state; // min max of rangeSlider
   for (item in data.products) {
     for (prop in data.products[item]) {
       if (typeof params[prop] !== 'undefined' && del.indexOf(item) < 0) {
-        index = params[prop].indexOf(data.products[item][prop]);
-        if (index  < 0) {
-          del.push(item);
-          continue;
+        if (data.facets[prop].filterView === 'rangeSlider') {
+          // rangeSlider
+          min = parseFloat(params[prop][0]);
+          max = parseFloat(params[prop][1]);
+          state = parseFloat(data.products[item][prop]);
+          if (state < min || state > max)
+            del.push(item);
+        } else {
+          // checkbox or others
+          index = params[prop].indexOf('' + data.products[item][prop]);
+          if (index  < 0) {
+            del.push(item);
+            continue;
+          }
         }
       }
     }

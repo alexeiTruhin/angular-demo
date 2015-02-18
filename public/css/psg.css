@@ -15,3 +15,18 @@
 .psgTable th {
   background: #ccc;
 }
+
+/* rangeSlider */
+.ngrs-handle.ngrs-handle-min,
+.ngrs-handle.ngrs-handle-max {
+  left: auto !important;
+}
+
+.ngrs-handle.ngrs-handle-max {
+
+}
+
+.ngrs-join {
+  left: 50% !important;
+  right: 50% !important;
+}
