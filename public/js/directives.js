@@ -7,31 +7,41 @@ var psgDirectives = angular.module('psgDirectives', []);
 psgDirectives.directive('applyFilters',['$compile', '$timeout', function($compile, $timeout) {
   var rangeSliderCount = 0;
 
-  function getRangeSliderTemplate () {
-    var range = 'range' + ++rangeSliderCount;
-    var template = '{{data.facets[facet].name}}' +
-
-      '<div range-slider orientation="vertical" min="' + range +'.minL" max="' + range + '.maxL" model-min="' + range + '.minS" model-max="' + range + '.maxS" step="0.1" decimal-places="1"></div>' +
-      '<strong>Min</strong> <input type="text" class="input-small" ng-model="' + range + '.minS">' +
-      '<strong>Max</strong> <input type="text" class="input-small" ng-model="' + range + '.maxS">' +
+  // ---- Templates -----//
+  var template_facetName = '{{data.facets[facet].name}}';
+  var template_order =
       '<div class="order">' +
         '<a href ng-click="setOrder(facet, \'asc\')">(&#9650;)</a> | <a href ng-click="setOrder(facet, \'desc\')">(&#9660;)</a>' +
       '</div>';
+  var template_compareSelectedButton =
+      '<span ng-if="facet === \'id\'">' +
+        '<button ng-click="compareSelected()">' +
+          'Compare Selected' +
+        '</button>' +
+      '</span>';
 
+
+  function getRangeSliderTemplate () {
+    var range = 'range' + ++rangeSliderCount;
+    var template =  template_facetName +
+      '<div range-slider orientation="vertical" min="' + range +'.minL" max="' + range + '.maxL" model-min="' + range + '.minS" model-max="' + range + '.maxS" step="0.1" decimal-places="1"></div>' +
+      '<strong>Min</strong> <input type="text" class="input-small" ng-model="' + range + '.minS">' +
+      '<strong>Max</strong> <input type="text" class="input-small" ng-model="' + range + '.maxS">' +
+      template_compareSelectedButton +
+      template_order;
     return template;
   }
 
   function getCheckboxTemplate () {
-    var template = '{{data.facets[facet].name}}' +
+    var template = template_facetName +
       '<p ng-repeat="option in data.facets[facet].options">' +
         '<label>' +
           '<input type="checkbox" ng-click="toggleParam(facet, option[0], data.facets[facet].filterView)" ng-checked="option[2]"/>' +
           '{{option[0]}} ({{option[1]}})' +
         '</label>' +
       '</p>' +
-      '<div class="order">' +
-        '<a href ng-click="setOrder(facet, \'asc\')">(&#9650;)</a> | <a href ng-click="setOrder(facet, \'desc\')">(&#9660;)</a>' +
-      '</div>';
+      template_compareSelectedButton +
+      template_order;
     return template;
   }
 

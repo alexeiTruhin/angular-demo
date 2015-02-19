@@ -30,17 +30,18 @@ psgControllers.controller('psgCtrl', ['$scope', 'Data', '$location', '$route', '
 
     // on init and change of location (url)
     $scope.$on('$locationChangeSuccess', function(next, current) {
+
+
+    });
+
+    // on start changing location (load)
+    $scope.$on('$locationChangeStart', function(next, current) {
       // initialize param with params from url
       $scope.param = initParam();
       // initialize url variable with $location.url
       $scope.url = initUrl();
       // GET data from server.
       getData($scope.url);
-    });
-
-    // on start changing location (load)
-    $scope.$on('$locationChangeStart', function(next, current) {
-      //console.log('start');
     });
 
 
@@ -116,6 +117,7 @@ psgControllers.controller('psgCtrl', ['$scope', 'Data', '$location', '$route', '
         //console.log($scope.data.facets);
 
         addCheckboxes($scope.data.facets, $scope.param);
+        addSelected($scope.data.products, $scope.param);
       });
     }
 
@@ -174,6 +176,48 @@ psgControllers.controller('psgCtrl', ['$scope', 'Data', '$location', '$route', '
       }
     }
 
+    function addSelected(products, params) {
+      var prod;
+      if (typeof params['_selected'] !== 'undefined') {
+        for (prod in products)
+          products[prod]['_selected'] = true;
+      } else {
+        for (prod in products)
+          products[prod]['_selected'] = false;
+      }
+    }
+
+    $scope.compareSelected = function compareSelected() {
+      var prod;
+      var selected = [];
+      var products = $scope.data.products;
+      if (typeof $scope.param['_selected'] === 'undefined') {
+        for (prod in products)
+          if (typeof products[prod]['_selected'] !== 'undefined' && products[prod]['_selected'])
+            selected.push(products[prod]['id']);
+
+        if (selected.length > 1) {
+          $scope.param['_selected'] = selected;
+          $scope.url = $scope.updateUrl();
+        }
+      } else {
+        delete $scope.param['_selected'];
+        $scope.url = $scope.updateUrl();
+      }
+    }
+
+    $scope.selectProduct = function selectProduct(prodId) {
+      var products = $scope.data.products;
+      var prod;
+      if (typeof $scope.param['_selected'] === 'undefined') {
+        for (prod in products) {
+          if (products[prod]['id'] === prodId) {
+            products[prod]['_selected'] = !products[prod]['_selected'];
+          }
+        }
+      }
+    }
+
     function transformValuesToString(obj) {
       var o;
       if (typeof obj === 'object') {
@@ -200,7 +244,7 @@ psgControllers.controller('psgCtrl', ['$scope', 'Data', '$location', '$route', '
     };
 
     function initUrl() {
-       return '' + $location.url().substring(1, $location.url().length);
+      return '' + $location.url().substring(1, $location.url().length);
     }
 
     // add/change order depending on facet.
