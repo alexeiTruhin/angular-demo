@@ -47,6 +47,24 @@ function filterData(data, params) {
     }
   }
 
+  // Selected products
+  var newProducts = []
+  if (typeof params['_selected'] !== 'undefined') {
+    if (params['_selected'].length > 1) {
+      data.products.forEach(function(prod) {
+        var index = params['_selected'].indexOf(prod['id']);
+        if (index > -1) {
+          newProducts.push(prod);
+        }
+      });
+
+      data.products = newProducts;
+    }
+  }
+
+  // ------
+
+
   var item;
   var prop;
   var index;

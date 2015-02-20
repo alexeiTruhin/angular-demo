@@ -6,6 +6,9 @@
   <link rel="stylesheet" href="css/angular.rangeSlider.css">
   <link rel="stylesheet" href="css/psg.css">
   <script src="js/jQuery/jquery-1.11.2.min.js"></script>
+  <script src="js/jQuery/jquery-ui.js"></script>
+  <script src="js/jQuery/jquery.sorttable.js"></script>
+
   <script src="js/angular/angular.js"></script>
   <script src="js/angular/angular-route.js"></script>
   <script src="js/angular/angular-resource.js"></script>
@@ -19,16 +22,24 @@
 
   <div ng-app="psgApp">
     <div ng-controller="psgCtrl">
-      <table class="psgTable">
-        <tr>
-          <th ng-repeat="facet in data.facetOrder" class="applyFilters">
-          </th>
-        </tr>
-        <tr ng-repeat="product in data.products">
-          <td ng-repeat="facet in data.facetOrder" data='data'>{{product[facet]}}
-          </td>
-        </tr>
-      </table>
+      <div class="psgDiv">
+        <table class="psgTable dragbleTable">
+          <tr>
+            <th ng-repeat="facet in data.facetOrder" class="applyFilters" id="{{facet}}">
+            </th>
+          </tr>
+          <tr ng-repeat="product in data.products">
+            <td ng-repeat="facet in data.facetOrder" data='data'>
+              <label>
+                <span ng-if="facet == 'id'">
+                  <input type="checkbox" ng-click="selectProduct(product['id'])" ng-checked="product['_selected']" ng-disabled="param['_selected']"/>
+                </span>
+                {{product[facet]}}
+              </label>
+            </td>
+          </tr>
+        </table>
+      </div>
     </div>
   </div>
 

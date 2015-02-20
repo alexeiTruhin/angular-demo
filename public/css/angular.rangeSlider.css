@@ -167,13 +167,13 @@
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
 }
 /* line 120, scss/_rangeSlider.scss */
-.ngrs-range-slider .ngrs-handle-min i {
+/*.ngrs-range-slider .ngrs-handle-min i {
   background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAFNJREFUeNpiYMAEXEDsA+OwoEnKALETEHOgK2AEYhMgNkQ3DqSAB6pLAot1DExIJmAFzED8C4hvQdnIppyFKYCBp0D8CohloVafxWUqN7I3AQIMAKw6B24pOi8lAAAAAElFTkSuQmCC");
-}
+}*/
 /* line 127, scss/_rangeSlider.scss */
-.ngrs-range-slider .ngrs-handle-max i {
+/*.ngrs-range-slider .ngrs-handle-max i {
   background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAFdJREFUeNpiYEAAHyDmYkADzEhsByBWA+K3QPwJmwJjIGYBYlUgZgLi59gUwIAkEEsD8VMmBtyAkQFqJDZwAYjPAPE/dAU/gHg/ED/GpgvkTW50QYAAAwADfwrM5sqplgAAAABJRU5ErkJggg==");
-}
+}*/
 /* line 137, scss/_rangeSlider.scss */
 .ngrs-range-slider .ngrs-value {
   position: absolute;
@@ -270,13 +270,13 @@
   margin: -9px 0 0 0;
 }
 /* line 236, scss/_rangeSlider.scss */
-.ngrs-range-slider.ngrs-vertical .ngrs-handle-min i {
+/*.ngrs-range-slider.ngrs-vertical .ngrs-handle-min i {
   background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAFFJREFUeNpiYEAFPFAMB0xIbEYgdoJiRpggM5ICUyBWhZoA0vgMWYEsENsg6ZQE4ldA/AmkkguIHZGNhQKQGBfIBHcgFmTABCxALMJAMQAIMAAcNgVQJ7t7JQAAAABJRU5ErkJggg==");
-}
+}*/
 /* line 243, scss/_rangeSlider.scss */
-.ngrs-range-slider.ngrs-vertical .ngrs-handle-max i {
+/*.ngrs-range-slider.ngrs-vertical .ngrs-handle-max i {
   background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAFZJREFUeNpiYKAUMAKxDxBL4ZB/xgQk9gHxDyySILF9zEDiNxC/A2JVNAW7gfgtM5TzCYhZgFgCyr8IxNdADGZk+4BYGoi/APEBIP6PzVE8UAwHAAEGAArIDvzRFIA6AAAAAElFTkSuQmCC");
-}
+}*/
 /* line 253, scss/_rangeSlider.scss */
 .ngrs-range-slider.ngrs-vertical .ngrs-value {
   top: 0;

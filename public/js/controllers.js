@@ -4,8 +4,8 @@
 
 var psgControllers = angular.module('psgControllers', []);
 
-psgControllers.controller('psgCtrl', ['$scope', 'Data', '$location', '$route', '$routeParams',
-  function($scope, Data, $location, $route, $routeParams) {
+psgControllers.controller('psgCtrl', ['$scope', '$timeout', 'Data', '$location', '$route', '$routeParams',
+  function($scope, $timeout, Data, $location, $route, $routeParams) {
 
     // --------- Initialization BEGIN -------------- //
 
@@ -27,6 +27,7 @@ psgControllers.controller('psgCtrl', ['$scope', 'Data', '$location', '$route', '
     // $scope.data.<products,facets,facetOrder>
     $scope.data = {};
 
+    $scope.facetOrderChange = false;
 
     // on init and change of location (url)
     $scope.$on('$locationChangeSuccess', function(next, current) {
@@ -36,12 +37,16 @@ psgControllers.controller('psgCtrl', ['$scope', 'Data', '$location', '$route', '
 
     // on start changing location (load)
     $scope.$on('$locationChangeStart', function(next, current) {
-      // initialize param with params from url
-      $scope.param = initParam();
-      // initialize url variable with $location.url
-      $scope.url = initUrl();
-      // GET data from server.
-      getData($scope.url);
+      if (!$scope.facetOrderChange) { // facetOrder should not get newData
+        // initialize param with params from url
+        $scope.param = initParam();
+        // initialize url variable with $location.url
+        $scope.url = initUrl();
+        // GET data from server.
+        getData($scope.url);
+      } else {
+        $scope.facetOrderChange = false;
+      }
     });
 
 
@@ -80,7 +85,6 @@ psgControllers.controller('psgCtrl', ['$scope', 'Data', '$location', '$route', '
     // update url parameter and location
     $scope.updateUrl = function updateUrl() {
       $scope.url = '';
-
       var p;
       for (p in $scope.param) {
         if ($scope.param[p].length) {
@@ -93,7 +97,6 @@ psgControllers.controller('psgCtrl', ['$scope', 'Data', '$location', '$route', '
       }
 
       $location.url('?' + $scope.url);
-
       return $scope.url;
     };
 
@@ -108,7 +111,11 @@ psgControllers.controller('psgCtrl', ['$scope', 'Data', '$location', '$route', '
 
         $scope.data.products = data.products;
         $scope.data.facets = data.facets;
-        $scope.data.facetOrder = data.facetOrder;
+        if (typeof $scope.param['_facetOrder'] !== 'undefined') {
+          $scope.data.facetOrder = $scope.param['_facetOrder'];
+        } else {
+          $scope.data.facetOrder = data.facetOrder;
+        }
 
         // <facet1> : [{<option1Name>: <option1Count}, ... ]
         // =>
@@ -385,6 +392,20 @@ psgControllers.controller('psgCtrl', ['$scope', 'Data', '$location', '$route', '
 
     }
 
+    $scope.changeFacetOrder = function(newFacetOrder) {
+      $scope.facetOrderChange = true;
 
+      console.log(newFacetOrder);
+        $( ".psgTable" ).sorttable( "refresh" );
+      //$scope.data.facetOrder = newFacetOrder;
+      $timeout(function(){
+        // update url
+        $scope.param['_facetOrder'] = newFacetOrder;
+
+        //$scope.data.facetOrder = newFacetOrder;
+        $scope.url = $scope.updateUrl();
+      }, 0)
+
+    };
 
   }]);
