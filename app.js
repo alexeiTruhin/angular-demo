@@ -16,8 +16,8 @@ app.get("/data/", function(req, res) {
   console.log('data request!');
   console.log(req.query);
   fData = filterData(JSON.parse(jsonFile), req.query);
-  res.send(fData);
   setTimeout(function() {
+    res.send(fData);
   }, 1000);
 });
 

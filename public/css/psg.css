@@ -55,3 +55,26 @@
   width: 90%;
 }
 
+/* ------ psgFacets ------- */
+.psgFacets {
+  padding-bottom: 20px;
+
+}
+
+.psgFacets .column {
+  border: 1px solid #000;
+  background: #ccc;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.psgFacets .column ul {
+  height: 200px;
+  list-style-type: none;
+  padding: 10px 30px;
+  width: 150px;
+}
+
+.psgFacets .column li {
+  cursor: pointer;
+}

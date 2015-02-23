@@ -6,6 +6,6 @@ var psgApp = angular.module('psgApp', [
   'psgControllers',
   'psgServices',
   'psgDirectives',
-  'ui-rangeSlider'
+  'ui-rangeSlider',
+  'ui.sortable'
 ]);
-

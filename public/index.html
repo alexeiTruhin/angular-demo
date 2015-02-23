@@ -13,6 +13,7 @@
   <script src="js/angular/angular-route.js"></script>
   <script src="js/angular/angular-resource.js"></script>
   <script src="js/angular.rangeSlider.js"></script>
+  <script src="js/sortable.js"></script>
   <script src="js/app.js"></script>
   <script src="js/controllers.js"></script>
   <script src="js/services.js"></script>
@@ -23,13 +24,35 @@
   <div ng-app="psgApp">
     <div ng-controller="psgCtrl">
       <div class="psgDiv">
+
+        <div class="psgFacets">
+          <div class="column show">
+            <ul ui-sortable="psgFacetsSort" ng-model="tempFacetShow" class="list">
+              <li ng-repeat="item in tempFacetShow" class="item">{{item}}</li>
+            </ul>
+          </div>
+          <div class="column hide">
+            <ul ui-sortable="psgFacetsSort" ng-model="tempFacetHide" class="list">
+              <li ng-repeat="item in tempFacetHide" class="item">{{item}}</li>
+            </ul>
+          </div>
+          <div>
+            <button ng-click="resetFacets()">Reset Facets</button>
+            <button ng-click="applyFacets()">Apply Facets</button>
+            <button ng-click="selectAllFacets()">Select All</button>
+          </div>
+        </div>
+
+
+
+
         <table class="psgTable dragbleTable">
           <tr>
-            <th ng-repeat="facet in data.facetOrder" class="applyFilters" id="{{facet}}">
+            <th ng-repeat="facet in data.facetShow" class="applyFilters" id="{{facet}}">
             </th>
           </tr>
           <tr ng-repeat="product in data.products">
-            <td ng-repeat="facet in data.facetOrder" data='data'>
+            <td ng-repeat="facet in data.facetShow">
               <label>
                 <span ng-if="facet == 'id'">
                   <input type="checkbox" ng-click="selectProduct(product['id'])" ng-checked="product['_selected']" ng-disabled="param['_selected']"/>

@@ -24,10 +24,10 @@ psgControllers.controller('psgCtrl', ['$scope', '$timeout', 'Data', '$location',
     */
     $scope.url = '';
 
-    // $scope.data.<products,facets,facetOrder>
+    // $scope.data.<products,facets,facetShow>
     $scope.data = {};
 
-    $scope.facetOrderChange = false;
+    $scope.facetShowChange = false;
 
     // on init and change of location (url)
     $scope.$on('$locationChangeSuccess', function(next, current) {
@@ -37,16 +37,14 @@ psgControllers.controller('psgCtrl', ['$scope', '$timeout', 'Data', '$location',
 
     // on start changing location (load)
     $scope.$on('$locationChangeStart', function(next, current) {
-      if (!$scope.facetOrderChange) { // facetOrder should not get newData
+
         // initialize param with params from url
         $scope.param = initParam();
         // initialize url variable with $location.url
         $scope.url = initUrl();
         // GET data from server.
         getData($scope.url);
-      } else {
-        $scope.facetOrderChange = false;
-      }
+
     });
 
 
@@ -101,20 +99,27 @@ psgControllers.controller('psgCtrl', ['$scope', '$timeout', 'Data', '$location',
     };
 
     function getData(url) {
-      // $scope.data.<products,facets,facetOrder>
+      // $scope.data.<products,facets,facetShow>
       Data.get({url: url}, function(data) {
         // for avoiding future missundenrstanding between Numbers and Strings
         // *not applying to data, because it has some additional properties.
         transformValuesToString(data.products);
         transformValuesToString(data.facets);
-        transformValuesToString(data.facetOrder);
+        transformValuesToString(data.facetShow);
+        transformValuesToString(data.facetAll);
 
         $scope.data.products = data.products;
         $scope.data.facets = data.facets;
-        if (typeof $scope.param['_facetOrder'] !== 'undefined') {
-          $scope.data.facetOrder = $scope.param['_facetOrder'];
+        $scope.data.facetAll = data.facetAll;
+
+        if (typeof $scope.param['_facetShow'] !== 'undefined') {
+          $scope.data.facetShow = $scope.param['_facetShow'].slice();
+          $scope.tempFacetShow = $scope.param['_facetShow'].slice(); // copy the array not ref.
+          $scope.tempFacetHide = $(data.facetAll).not($scope.param['_facetShow']).get();
         } else {
-          $scope.data.facetOrder = data.facetOrder;
+          $scope.data.facetShow = data.facetShow;
+          $scope.tempFacetShow = data.facetShow.slice(); // copy the array not ref.
+          $scope.tempFacetHide = $(data.facetAll).not(data.facetShow).get();
         }
 
         // <facet1> : [{<option1Name>: <option1Count}, ... ]
@@ -125,6 +130,7 @@ psgControllers.controller('psgCtrl', ['$scope', '$timeout', 'Data', '$location',
 
         addCheckboxes($scope.data.facets, $scope.param);
         addSelected($scope.data.products, $scope.param);
+
       });
     }
 
@@ -246,7 +252,7 @@ psgControllers.controller('psgCtrl', ['$scope', '$timeout', 'Data', '$location',
         locParam[p] = locParam[p].split(',');
       };
 
-      // add checkbox: true to $scope.data.facetOrder
+      // add checkbox: true to $scope.data.facetShow
       return locParam;
     };
 
@@ -392,20 +398,46 @@ psgControllers.controller('psgCtrl', ['$scope', '$timeout', 'Data', '$location',
 
     }
 
-    $scope.changeFacetOrder = function(newFacetOrder) {
-      $scope.facetOrderChange = true;
+    $scope.changefacetShow = function(newfacetShow) {
+      $scope.facetShowChange = true;
 
-      console.log(newFacetOrder);
+      //console.log(newfacetShow);
         $( ".psgTable" ).sorttable( "refresh" );
-      //$scope.data.facetOrder = newFacetOrder;
+      //$scope.data.facetShow = newfacetShow;
       $timeout(function(){
         // update url
-        $scope.param['_facetOrder'] = newFacetOrder;
+        $scope.param['_facetShow'] = newfacetShow.slice();
+        $scope.tempFacetShow = newfacetShow.slice();
 
-        //$scope.data.facetOrder = newFacetOrder;
+        //$scope.data.facetShow = newfacetShow;
         $scope.url = $scope.updateUrl();
       }, 0)
 
     };
 
+
+    $scope.psgFacetsSort = {
+      connectWith: '.list',
+      stop: function(e, ui) {
+        //console.log(ui.item);
+      }
+    }
+
+    $scope.resetFacets = function() {
+      delete $scope.param['_facetShow'];
+      $scope.url = $scope.updateUrl();
+    }
+
+    $scope.applyFacets = function() {
+      $scope.param['_facetShow'] = $scope.tempFacetShow.slice();
+      $scope.url = $scope.updateUrl();
+    }
+
+    $scope.selectAllFacets = function() {
+      $scope.tempFacetShow = $scope.data.facetAll.slice();
+      $scope.tempFacetHide = [];
+    }
+
+
   }]);
+

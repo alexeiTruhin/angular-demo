@@ -110,14 +110,42 @@
       ],
       "name": "Max. Operating Voltage (V)",
       "filterView": "rangeSlider"
+    },
+    "flash": {
+      "options": [
+        {"16": 2},
+        {"32": 3},
+        {"64": 3}
+      ],
+      "name": "Flash (KB)",
+      "filterView": "checkbox"
+    },
+    "sram": {
+      "options": [
+        {"2": 3},
+        {"4": 2},
+        {"8": 3}
+      ],
+      "name": "SRAM (KB)",
+      "filterView": "checkbox"
     }
   },
-  "facetOrder": [
+  "facetShow": [
     "id",
     "status",
     "digital_block",
     "gpio",
     "minV",
     "maxV"
+  ],
+  "facetAll": [
+    "id",
+    "status",
+    "digital_block",
+    "gpio",
+    "minV",
+    "maxV",
+    "flash",
+    "sram"
   ]
 }

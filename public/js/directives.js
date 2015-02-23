@@ -203,7 +203,6 @@ psgDirectives.directive('dragbleTable',['$compile', '$timeout', function($compil
     restrict: 'C',
     link: function (scope, element, attr) {
 
-
       $('.psgTable').sorttable({
           items: '>:not(.nodrag)',
           handle: '.draghandle', // drag using handle
@@ -220,11 +219,12 @@ psgDirectives.directive('dragbleTable',['$compile', '$timeout', function($compil
             ui.item.parents('.psgTable').children().find('>tr:not(.ui-sortable)').fadeTo('normal', 1);
 
             // Get new order
-            var facetOrder = [];
+            var facetShow = [];
             ui.item.parents('.psgTable').children().find('>tr.ui-sortable >th').each(function(index, item) {
-              facetOrder.push($(item).attr('id'));
+              facetShow.push($(item).attr('id'));
+              $(item).attr('style', '')
             });
-            scope.changeFacetOrder(facetOrder);
+            scope.changefacetShow(facetShow);
           }
       });
 
