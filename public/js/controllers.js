@@ -6,6 +6,27 @@ var psgControllers = angular.module('psgControllers', []);
 
 psgControllers.controller('psgCtrl', ['$scope', '$timeout', 'Data', '$location', '$route', '$routeParams',
   function($scope, $timeout, Data, $location, $route, $routeParams) {
+    // ---------------- CONSTANTS ------------------ //
+    var
+    _rangeSlider = 'rangeSlider',
+    _facetShow = '_facetShow',
+    _selected = '_selected',
+    _id = 'id',
+    _order = '_order',
+    _$psgTable = '.psgTable',
+    _$psgFacetsList = '.psgFacetsList';
+
+    $scope._facetShow = _facetShow;
+    $scope._selected = _selected;
+    $scope._order = _order;
+    $scope._rangeSlider = _rangeSlider;
+    $scope._id = _id;
+    $scope._$psgTable = _$psgTable;
+    $scope._$psgFacetsList = _$psgFacetsList;
+    // -------------------------------------------- //
+
+
+
 
     // --------- Initialization BEGIN -------------- //
 
@@ -31,20 +52,20 @@ psgControllers.controller('psgCtrl', ['$scope', '$timeout', 'Data', '$location',
 
     // on init and change of location (url)
     $scope.$on('$locationChangeSuccess', function(next, current) {
-
-
+      console.log(2)
+      // initialize param with params from url
+      $scope.param = initParam();
+      // initialize url variable with $location.url
+      $scope.url = initUrl();
+      // GET data from server.
+      getData($scope.url);
     });
 
     // on start changing location (load)
     $scope.$on('$locationChangeStart', function(next, current) {
-
-        // initialize param with params from url
-        $scope.param = initParam();
-        // initialize url variable with $location.url
-        $scope.url = initUrl();
-        // GET data from server.
-        getData($scope.url);
-
+      //if ($location.url() === '') $location.url('?')
+       //$location.url('')
+      console.log(1)
     });
 
 
@@ -60,7 +81,7 @@ psgControllers.controller('psgCtrl', ['$scope', '$timeout', 'Data', '$location',
       }
 
       var index;
-      if (filterView == 'rangeSlider') {
+      if (filterView === _rangeSlider) {
         // option is an array in this case
         $scope.param[facet] = option;
       } else { // checkbox
@@ -101,6 +122,12 @@ psgControllers.controller('psgCtrl', ['$scope', '$timeout', 'Data', '$location',
     function getData(url) {
       // $scope.data.<products,facets,facetShow>
       Data.get({url: url}, function(data) {
+/*        // Add 'id' as facet
+        data.facets[_id] = {"name": "Part Number"};
+        data.facetShow = [_id].concat(data.facetShow);
+        data.facetAll = [_id].concat(data.facetAll);*/
+
+
         // for avoiding future missundenrstanding between Numbers and Strings
         // *not applying to data, because it has some additional properties.
         transformValuesToString(data.products);
@@ -112,10 +139,10 @@ psgControllers.controller('psgCtrl', ['$scope', '$timeout', 'Data', '$location',
         $scope.data.facets = data.facets;
         $scope.data.facetAll = data.facetAll;
 
-        if (typeof $scope.param['_facetShow'] !== 'undefined') {
-          $scope.data.facetShow = $scope.param['_facetShow'].slice();
-          $scope.tempFacetShow = $scope.param['_facetShow'].slice(); // copy the array not ref.
-          $scope.tempFacetHide = $(data.facetAll).not($scope.param['_facetShow']).get();
+        if (typeof $scope.param[_facetShow] !== 'undefined') {
+          $scope.data.facetShow = $scope.param[_facetShow].slice();
+          $scope.tempFacetShow = $scope.param[_facetShow].slice(); // copy the array not ref.
+          $scope.tempFacetHide = $(data.facetAll).not($scope.param[_facetShow]).get();
         } else {
           $scope.data.facetShow = data.facetShow;
           $scope.tempFacetShow = data.facetShow.slice(); // copy the array not ref.
@@ -191,12 +218,12 @@ psgControllers.controller('psgCtrl', ['$scope', '$timeout', 'Data', '$location',
 
     function addSelected(products, params) {
       var prod;
-      if (typeof params['_selected'] !== 'undefined') {
+      if (typeof params[_selected] !== 'undefined') {
         for (prod in products)
-          products[prod]['_selected'] = true;
+          products[prod][_selected] = true;
       } else {
         for (prod in products)
-          products[prod]['_selected'] = false;
+          products[prod][_selected] = false;
       }
     }
 
@@ -204,17 +231,17 @@ psgControllers.controller('psgCtrl', ['$scope', '$timeout', 'Data', '$location',
       var prod;
       var selected = [];
       var products = $scope.data.products;
-      if (typeof $scope.param['_selected'] === 'undefined') {
+      if (typeof $scope.param[_selected] === 'undefined') {
         for (prod in products)
-          if (typeof products[prod]['_selected'] !== 'undefined' && products[prod]['_selected'])
-            selected.push(products[prod]['id']);
+          if (typeof products[prod][_selected] !== 'undefined' && products[prod][_selected])
+            selected.push(products[prod][_id]);
 
         if (selected.length > 1) {
-          $scope.param['_selected'] = selected;
+          $scope.param[_selected] = selected;
           $scope.url = $scope.updateUrl();
         }
       } else {
-        delete $scope.param['_selected'];
+        delete $scope.param[_selected];
         $scope.url = $scope.updateUrl();
       }
     }
@@ -222,10 +249,10 @@ psgControllers.controller('psgCtrl', ['$scope', '$timeout', 'Data', '$location',
     $scope.selectProduct = function selectProduct(prodId) {
       var products = $scope.data.products;
       var prod;
-      if (typeof $scope.param['_selected'] === 'undefined') {
+      if (typeof $scope.param[_selected] === 'undefined') {
         for (prod in products) {
-          if (products[prod]['id'] === prodId) {
-            products[prod]['_selected'] = !products[prod]['_selected'];
+          if (products[prod][_id] === prodId) {
+            products[prod][_selected] = !products[prod][_selected];
           }
         }
       }
@@ -250,6 +277,10 @@ psgControllers.controller('psgCtrl', ['$scope', '$timeout', 'Data', '$location',
 
       for (p in locParam) {
         locParam[p] = locParam[p].split(',');
+/*        if (p === _facetShow) {
+          // add 'id' to facets
+          locParam[p] = [_id].concat(locParam[p]);
+        }*/
       };
 
       // add checkbox: true to $scope.data.facetShow
@@ -266,10 +297,10 @@ psgControllers.controller('psgCtrl', ['$scope', '$timeout', 'Data', '$location',
     $scope.setOrder = function (facet, order) {
       // if param[facet] doesn't exist, init with an empty array
       if (typeof $scope.param[facet] === 'undefined') {
-        $scope.param['_order'] = [];
+        $scope.param[_order] = [];
       }
 
-      $scope.param['_order'] = [facet, order];
+      $scope.param[_order] = [facet, order];
 
       // update url
       $scope.url = $scope.updateUrl();
@@ -383,10 +414,10 @@ psgControllers.controller('psgCtrl', ['$scope', '$timeout', 'Data', '$location',
 
       var i;
       for (i = 0; i < arr.length; i++) {
-        if (value > arr[i]) prev = arr[i]
+        if (value >= arr[i]) prev = arr[i]
       }
       for (i = arr.length; i > 0; --i) {
-        if (value < arr[i]) next = arr[i]
+        if (value <= arr[i]) next = arr[i]
       }
 
 
@@ -399,14 +430,14 @@ psgControllers.controller('psgCtrl', ['$scope', '$timeout', 'Data', '$location',
     }
 
     $scope.changefacetShow = function(newfacetShow) {
-      $scope.facetShowChange = true;
+/*      // Delete 'id' facet
+      newfacetShow.splice(0, 1);*/
 
-      //console.log(newfacetShow);
-        $( ".psgTable" ).sorttable( "refresh" );
+        $( _$psgTable ).sorttable( "refresh" );
       //$scope.data.facetShow = newfacetShow;
       $timeout(function(){
         // update url
-        $scope.param['_facetShow'] = newfacetShow.slice();
+        $scope.param[_facetShow] = newfacetShow.slice();
         $scope.tempFacetShow = newfacetShow.slice();
 
         //$scope.data.facetShow = newfacetShow;
@@ -417,19 +448,19 @@ psgControllers.controller('psgCtrl', ['$scope', '$timeout', 'Data', '$location',
 
 
     $scope.psgFacetsSort = {
-      connectWith: '.list',
+      connectWith: _$psgFacetsList,
       stop: function(e, ui) {
         //console.log(ui.item);
       }
     }
 
     $scope.resetFacets = function() {
-      delete $scope.param['_facetShow'];
+      delete $scope.param[_facetShow];
       $scope.url = $scope.updateUrl();
     }
 
     $scope.applyFacets = function() {
-      $scope.param['_facetShow'] = $scope.tempFacetShow.slice();
+      $scope.param[_facetShow] = $scope.tempFacetShow.slice();
       $scope.url = $scope.updateUrl();
     }
 
@@ -438,6 +469,15 @@ psgControllers.controller('psgCtrl', ['$scope', '$timeout', 'Data', '$location',
       $scope.tempFacetHide = [];
     }
 
+    $scope.removeFacet = function (facet) {
+      var index = $scope.data.facetShow.indexOf(facet);
+      if (index > -1) {
+        $scope.data.facetShow.splice(index, 1);
+        $scope.tempFacetShow = $scope.data.facetShow.slice();
+        $scope.tempFacetHide.push(facet);
+      }
+
+    }
 
   }]);
 

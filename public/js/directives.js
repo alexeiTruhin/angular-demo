@@ -5,6 +5,18 @@
 var psgDirectives = angular.module('psgDirectives', []);
 
 psgDirectives.directive('applyFilters',['$compile', '$timeout', function($compile, $timeout) {
+    // ---------------- CONSTANTS ------------------ //
+    var
+    _facetShow = '_facetShow',
+    _selected = '_selected',
+    _order = '_order',
+    _rangeSlider = 'rangeSlider',
+    _id = 'id',
+    _$psgTable = '.psgTable',
+    _$psgFacetsList = '.psgFacetsList';
+
+    // -------------------------------------------- //
+
   var rangeSliderCount = 0;
 
   // ---- Templates -----//
@@ -14,28 +26,30 @@ psgDirectives.directive('applyFilters',['$compile', '$timeout', function($compil
         '<a href ng-click="setOrder(facet, \'asc\')">(&#9650;)</a> | <a href ng-click="setOrder(facet, \'desc\')">(&#9660;)</a>' +
       '</div>';
   var template_compareSelectedButton =
-      '<span ng-if="facet === \'id\'">' +
+      '<span ng-if="facet === ' + _id + '">' +
         '<button ng-click="compareSelected()">' +
           'Compare Selected' +
         '</button>' +
       '</span>';
-  var template_draghandle = '<div class="draghandle" ng-if="facet !== \'id\'"> drag </div>';
+  var template_draghandle = '<div class="draghandle"> drag </div>';
+  var template_removeFacet = '<div class="removeFacet"> <a href ng-click="removeFacet(facet)"> removeFacet </a></div>';
 
 
   function getRangeSliderTemplate () {
     var range = 'range' + ++rangeSliderCount;
     var template =  template_draghandle +
+      template_removeFacet +
       template_facetName +
       '<div range-slider orientation="vertical" min="' + range +'.minL" max="' + range + '.maxL" model-min="' + range + '.minS" model-max="' + range + '.maxS" step="0.1" decimal-places="1"></div>' +
       '<strong>Min</strong> <input type="text" class="input-small" ng-model="' + range + '.minS">' +
       '<strong>Max</strong> <input type="text" class="input-small" ng-model="' + range + '.maxS">' +
-      template_compareSelectedButton +
       template_order;
     return template;
   }
 
   function getCheckboxTemplate () {
     var template = template_draghandle +
+      template_removeFacet +
       template_facetName +
       '<p ng-repeat="option in data.facets[facet].options">' +
         '<label>' +
@@ -43,20 +57,19 @@ psgDirectives.directive('applyFilters',['$compile', '$timeout', function($compil
           '{{option[0]}} ({{option[1]}})' +
         '</label>' +
       '</p>' +
-      template_compareSelectedButton +
       template_order;
     return template;
   }
 
   return {
-    restrict: 'ACE',
+    restrict: 'C',
 
     link: function (scope, element, attr) {
           var facet = scope.data.facets[scope.facet];
           var template;
 
           // Select template
-          if (facet.filterView == 'rangeSlider') {
+          if (facet.filterView === _rangeSlider) {
             template = getRangeSliderTemplate();
           } else {
             template = getCheckboxTemplate();
@@ -65,12 +78,12 @@ psgDirectives.directive('applyFilters',['$compile', '$timeout', function($compil
           element.html(template);
 
           $compile(element.contents())(scope);
-          if (scope.facet === 'id') {
+          if (scope.facet === _id) {
             $(element).addClass('nodrag');
           }
           // -----------
 
-          if (facet.filterView == 'rangeSlider') {
+          if (facet.filterView === _rangeSlider) {
             var range = 'range' + rangeSliderCount;
 
             var facetOptions = facet.options;
@@ -167,28 +180,31 @@ psgDirectives.directive('applyFilters',['$compile', '$timeout', function($compil
 
 
             // ----- Send params to $scope.params ------ //
-              var mousedown = false;
-              var tempRange;
-              $(element).find('.ngrs-handle').on('mousedown', function(){
-                tempRange = [scope[range].minS, scope[range].maxS];
-                mousedown = true;
-              });
+            var mousedown = false;
+            var tempRange;
+            $(element).find('.ngrs-handle').on('mousedown', function(){
+              tempRange = [scope[range].minS, scope[range].maxS];
+              mousedown = true;
+            });
 
-              $(window).on('mouseup', function(){
-                if (mousedown) {
-                  if (tempRange[0] !== scope[range].minS || tempRange[1] !== scope[range].maxS) {
-                    $timeout(function() {
-                      scope.toggleParam(
-                        scope.facet,
-                        [scope[range].minS + '', scope[range].maxS + ''],
-                        facet.filterView
-                      );
-                    }, 0);
-                  }
-                  mousedown = false;
+            $(window).on('mouseup', function(){
+              if (mousedown) {
+                if (tempRange[0] !== scope[range].minS || tempRange[1] !== scope[range].maxS) {
+                  $timeout(function() {
+                    scope.toggleParam(
+                      scope.facet,
+                      [
+                        scope[range].minS + '',
+                        scope[range].maxS + ''
+                      ],
+                      facet.filterView
+                    );
+
+                  }, 0);
                 }
-
-              });
+                mousedown = false;
+              }
+            });
 
             // -------------------- //
           }
@@ -198,6 +214,17 @@ psgDirectives.directive('applyFilters',['$compile', '$timeout', function($compil
 }]);
 
 psgDirectives.directive('dragbleTable',['$compile', '$timeout', function($compile, $timeout) {
+  // ---------------- CONSTANTS ------------------ //
+  var
+  _facetShow = '_facetShow',
+  _selected = '_selected',
+  _order = '_order',
+  _rangeSlider = 'rangeSlider',
+  _id = 'id',
+  _$psgTable = '.psgTable',
+  _$psgFacetsList = '.psgFacetsList';
+
+  // -------------------------------------------- //
 
   return {
     restrict: 'C',
@@ -213,16 +240,18 @@ psgDirectives.directive('dragbleTable',['$compile', '$timeout', function($compil
           distance: 0,
           tolerance: 'pointer',
           start: function (e, ui) {
-            ui.item.parents('.psgTable').children().find('>tr:not(.ui-sortable)').fadeTo('slow', 0.5);
+            //ui.item.parents('.psgTable').children().find('>tr:not(.ui-sortable)').fadeTo('slow', 0.5);
           },
           stop: function (e, ui) {
-            ui.item.parents('.psgTable').children().find('>tr:not(.ui-sortable)').fadeTo('normal', 1);
+            //ui.item.parents('.psgTable').children().find('>tr:not(.ui-sortable)').fadeTo('normal', 1);
 
             // Get new order
             var facetShow = [];
             ui.item.parents('.psgTable').children().find('>tr.ui-sortable >th').each(function(index, item) {
-              facetShow.push($(item).attr('id'));
-              $(item).attr('style', '')
+              if ($(item).attr('id') !== _id) {
+                facetShow.push($(item).attr('id'));
+                $(item).attr('style', '');
+              }
             });
             scope.changefacetShow(facetShow);
           }

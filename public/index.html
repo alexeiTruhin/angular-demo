@@ -24,16 +24,20 @@
   <div ng-app="psgApp">
     <div ng-controller="psgCtrl">
       <div class="psgDiv">
-
+        <div class="psgFacetsQuery">
+          <p>Search Headers:
+            <input id="queryParam" ng-model="query" class="ng-pristine ng-valid">
+          </p>
+        </div>
         <div class="psgFacets">
           <div class="column show">
-            <ul ui-sortable="psgFacetsSort" ng-model="tempFacetShow" class="list">
-              <li ng-repeat="item in tempFacetShow" class="item">{{item}}</li>
+            <ul ui-sortable="psgFacetsSort" ng-model="tempFacetShow" class="psgFacetsList">
+              <li ng-repeat="item in tempFacetShow|filter:query" class="item">{{item}}</li>
             </ul>
           </div>
           <div class="column hide">
-            <ul ui-sortable="psgFacetsSort" ng-model="tempFacetHide" class="list">
-              <li ng-repeat="item in tempFacetHide" class="item">{{item}}</li>
+            <ul ui-sortable="psgFacetsSort" ng-model="tempFacetHide" class="psgFacetsList">
+              <li ng-repeat="item in tempFacetHide|filter:query" class="item">{{item}}</li>
             </ul>
           </div>
           <div>
@@ -45,23 +49,30 @@
 
 
 
-
-        <table class="psgTable dragbleTable">
-          <tr>
-            <th ng-repeat="facet in data.facetShow" class="applyFilters" id="{{facet}}">
-            </th>
-          </tr>
-          <tr ng-repeat="product in data.products">
-            <td ng-repeat="facet in data.facetShow">
-              <label>
-                <span ng-if="facet == 'id'">
-                  <input type="checkbox" ng-click="selectProduct(product['id'])" ng-checked="product['_selected']" ng-disabled="param['_selected']"/>
-                </span>
-                {{product[facet]}}
-              </label>
-            </td>
-          </tr>
-        </table>
+        <div class="psgPreTable"> <!-- scrollable -->
+          <table class="psgTable dragbleTable">
+            <tr>
+              <th id="{{_id}}" class="nodrag">
+                <button ng-click="compareSelected()">
+                  Compare Selected
+                </button>
+              </th>
+              <th ng-repeat="facet in data.facetShow" class="applyFilters" id="{{facet}}">
+              </th>
+            </tr>
+            <tr ng-repeat="product in data.products">
+              <td>
+                <label>
+                  <input type="checkbox" ng-click="selectProduct(product[_id])" ng-checked="product[_selected]" ng-disabled="param[_selected]"/>
+                  {{product[_id]}}
+                </label>
+              </td>
+              <td ng-repeat="facet in data.facetShow">
+                  {{product[facet]}}
+              </td>
+            </tr>
+          </table>
+        </div>
       </div>
     </div>
   </div>

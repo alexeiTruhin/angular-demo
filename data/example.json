@@ -66,9 +66,6 @@
     }
   ],
   "facets":{
-    "id": {
-      "name": "Part Number"
-    },
     "status": {
       "options": [
         {"In Production": 7},
@@ -131,7 +128,6 @@
     }
   },
   "facetShow": [
-    "id",
     "status",
     "digital_block",
     "gpio",
@@ -139,7 +135,6 @@
     "maxV"
   ],
   "facetAll": [
-    "id",
     "status",
     "digital_block",
     "gpio",
@@ -147,5 +142,8 @@
     "maxV",
     "flash",
     "sram"
-  ]
+  ],
+  "id": {
+    "name": "Part Number"
+  }
 }
