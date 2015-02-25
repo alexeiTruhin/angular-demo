@@ -24,29 +24,31 @@
   <div ng-app="psgApp">
     <div ng-controller="psgCtrl">
       <div class="psgDiv">
-        <div class="psgFacetsQuery">
-          <p>Search Headers:
-            <input id="queryParam" ng-model="query" class="ng-pristine ng-valid">
-          </p>
-        </div>
-        <div class="psgFacets">
-          <div class="column show">
-            <ul ui-sortable="psgFacetsSort" ng-model="tempFacetShow" class="psgFacetsList">
-              <li ng-repeat="item in tempFacetShow|filter:query" class="item">{{item}}</li>
-            </ul>
-          </div>
-          <div class="column hide">
-            <ul ui-sortable="psgFacetsSort" ng-model="tempFacetHide" class="psgFacetsList">
-              <li ng-repeat="item in tempFacetHide|filter:query" class="item">{{item}}</li>
-            </ul>
-          </div>
-          <div>
-            <button ng-click="resetFacets()">Reset Facets</button>
-            <button ng-click="applyFacets()">Apply Facets</button>
-            <button ng-click="selectAllFacets()">Select All</button>
-          </div>
-        </div>
 
+        <div class="psgFacetsBlock">
+          <div class="psgFacetsQuery">
+            <p>Search Headers:
+              <input id="queryParam" ng-model="query" class="ng-pristine ng-valid">
+            </p>
+          </div>
+          <div class="psgFacets">
+            <div class="column show">
+              <ul ui-sortable="psgFacetsSort" ng-model="tempFacetShow" class="psgFacetsList">
+                <li ng-repeat="item in tempFacetShow|filter:query" class="item">{{item}}</li>
+              </ul>
+            </div>
+            <div class="column hide">
+              <ul ui-sortable="psgFacetsSort" ng-model="tempFacetHide" class="psgFacetsList">
+                <li ng-repeat="item in tempFacetHide|filter:query" class="item">{{item}}</li>
+              </ul>
+            </div>
+            <div>
+              <button ng-click="resetFacets()">Reset Facets</button>
+              <button ng-click="applyFacets()">Apply Facets</button>
+              <button ng-click="selectAllFacets()">Select All</button>
+            </div>
+          </div>
+        </div>
 
 
         <div class="psgPreTable"> <!-- scrollable -->
@@ -56,6 +58,9 @@
               <th class="nodrag" id="{{_id}}">
                 <button ng-click="compareSelected()">
                   Compare Selected
+                </button>
+                <button ng-click="toggleFacetsBlock()">
+                  Show/Hide Parameters ({{tempFacetHide.length}} Hidden)
                 </button>
               </th>
               <th ng-repeat="facet in data.facetShow" class="applyFilters" id="{{facet}}">

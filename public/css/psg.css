@@ -1,6 +1,6 @@
 .psgDiv {
   margin-top: 60px;
-
+  position: relative;
 }
 
 .psgTable {
@@ -15,7 +15,7 @@
 .psgTable td {
   border: 1px solid #000;
   padding: 10px;
-  min-width: 150px;
+  width: 150px;
 }
 
 .psgTable th {
@@ -23,7 +23,6 @@
   position: relative;
   padding-bottom: 40px;
   padding-top: 70px;
-
 }
 
 /* rangeSlider */
@@ -126,4 +125,15 @@
 .ngrs-range-slider .ngrs-handle i,
 .ngrs-range-slider .ngrs-join {
   cursor: default;
+}
+
+
+/* Facets Block */
+.psgFacetsBlock {
+  background: #fff;
+  border:2px solid #000;
+  display: none;
+  position: absolute;
+  z-index: 12;
+
 }

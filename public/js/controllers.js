@@ -14,7 +14,8 @@ psgControllers.controller('psgCtrl', ['$scope', '$timeout', 'Data', '$location',
     _id = 'id',
     _order = '_order',
     _$psgTable = '.psgTable',
-    _$psgFacetsList = '.psgFacetsList';
+    _$psgFacetsList = '.psgFacetsList',
+    _$psgFacetsBlock = '.psgFacetsBlock';
 
     $scope._facetShow = _facetShow;
     $scope._selected = _selected;
@@ -476,7 +477,15 @@ psgControllers.controller('psgCtrl', ['$scope', '$timeout', 'Data', '$location',
 
     }
 
+    $scope.toggleFacetsBlock = function () {
+      var $block = $(_$psgFacetsBlock);
+      var $th = $(_$psgTable).children().find('>tr >th').first();
+      $block.toggle();
+      $block.css({
+        'left': $th.outerWidth()
+      })
 
+    }
 
   }]);
 
