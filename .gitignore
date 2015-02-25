@@ -6,3 +6,7 @@ Cypress PSG.png
 
 #logs
 *.log
+
+#bundle, sass
+public/.sass-cache/
+public/Gemfile.lock

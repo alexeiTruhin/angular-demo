@@ -1,0 +1,33 @@
+// Layout.
+$column-width: 50px;
+$gutter-width: 24px;
+$grid-padding: 13px;
+
+$total-columns: 4;
+$tablet: 7;
+$small-desktop: 12;
+$large-desktop: 16;
+
+$container-style: magic;
+$container-width: container-outer-width($large-desktop);
+
+@include border-box-sizing;
+
+// Breakpoints.
+
+$more-than-1500: 1500px;
+$more-than-1024: 1024px;
+$more-than-768: 768px;
+$more-than-480: 480px;
+$more-than-320: 320px;
+
+$only-tablet: $more-than-768 1023px;
+$screen-tablet: 0 1023px;
+$screen-mobile: 0 767px;
+$tablet-desktop: 768px 1023px;
+$small-mobile: 0 479px;
+$large-mobile: 480px 767px;
+
+$legacy-support-for-ie: false;
+$breakpoint-ie-output: false;
+
