@@ -41,11 +41,8 @@
   right: 50% !important;
 }
 
-.psgTable th .order {
-  position: absolute;
-  bottom: 10px;
+.psgTable .order {
   text-align: center;
-  width: 90%;
 }
 
 /* Dragble */

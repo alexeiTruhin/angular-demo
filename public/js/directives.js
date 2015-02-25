@@ -42,8 +42,7 @@ psgDirectives.directive('applyFilters',['$compile', '$timeout', function($compil
       template_facetName +
       '<div range-slider orientation="vertical" min="' + range +'.minL" max="' + range + '.maxL" model-min="' + range + '.minS" model-max="' + range + '.maxS" step="0.1" decimal-places="1"></div>' +
       '<strong>Min</strong> <input type="text" class="input-small" ng-model="' + range + 'input.minS" ng-blur="onblur($event, \'' + range + '\', \'min\')"/>' +
-      '<strong>Max</strong> <input type="text" class="input-small" ng-model="' + range + 'input.maxS" ng-blur="onblur($event, \'' + range + '\', \'max\')"/>' +
-      template_order;
+      '<strong>Max</strong> <input type="text" class="input-small" ng-model="' + range + 'input.maxS" ng-blur="onblur($event, \'' + range + '\', \'max\')"/>';
     return template;
   }
 
@@ -56,8 +55,7 @@ psgDirectives.directive('applyFilters',['$compile', '$timeout', function($compil
           '<input type="checkbox" ng-click="toggleParam(facet, option[0], data.facets[facet].filterView)" ng-checked="option[2]"/>' +
           '{{option[0]}} ({{option[1]}})' +
         '</label>' +
-      '</p>' +
-      template_order;
+      '</p>';
     return template;
   }
 

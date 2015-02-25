@@ -430,10 +430,10 @@ psgControllers.controller('psgCtrl', ['$scope', '$timeout', 'Data', '$location',
 /*      // Delete 'id' facet
       newfacetShow.splice(0, 1);*/
 
-        $( _$psgTable ).sorttable( "refresh" );
       //$scope.data.facetShow = newfacetShow;
       $timeout(function(){
         // update url
+        $( _$psgTable ).sorttable( "refresh" );
         $scope.param[_facetShow] = newfacetShow.slice();
         $scope.tempFacetShow = newfacetShow.slice();
 

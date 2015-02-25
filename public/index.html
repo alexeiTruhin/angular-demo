@@ -51,8 +51,9 @@
 
         <div class="psgPreTable"> <!-- scrollable -->
           <table class="psgTable dragbleTable">
+            <!-- psgTable Header (Facets) -->
             <tr>
-              <th id="{{_id}}" class="nodrag">
+              <th class="nodrag" id="{{_id}}">
                 <button ng-click="compareSelected()">
                   Compare Selected
                 </button>
@@ -60,6 +61,22 @@
               <th ng-repeat="facet in data.facetShow" class="applyFilters" id="{{facet}}">
               </th>
             </tr>
+            <!-- psgTable order -->
+            <tr>
+              <td>
+                <div class="order">
+                  <a href ng-click="setOrder(_id, 'asc')">(&#9650;)</a> |
+                  <a href ng-click="setOrder(_id, 'desc')">(&#9660;)</a>
+                </div>
+              </td>
+              <td ng-repeat="facet in data.facetShow">
+                <div class="order">
+                  <a href ng-click="setOrder(facet, 'asc')">(&#9650;)</a> |
+                  <a href ng-click="setOrder(facet, 'desc')">(&#9660;)</a>
+                </div>
+              </td>
+            </tr>
+            <!-- psgTable Body (content) -->
             <tr ng-repeat="product in data.products">
               <td>
                 <label>
