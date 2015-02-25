@@ -56,11 +56,15 @@
             <!-- psgTable Header (Facets) -->
             <tr>
               <th class="nodrag" id="{{_id}}">
-                <button ng-click="compareSelected()">
-                  Compare Selected
-                </button>
                 <button ng-click="toggleFacetsBlock()">
                   Show/Hide Parameters ({{tempFacetHide.length}} Hidden)
+                </button>
+                <button ng-click="resetFilters()">
+                  Reset Filters
+                </button>
+
+                <button ng-click="compareSelected()" ng-class="{active: !!param[_selected]}" ng-disabled="!param[_selected] && getSelected().length <= 1">
+                  {{!!param[_selected] ? 'View All Matches' : 'Compare Selected'}}
                 </button>
               </th>
               <th ng-repeat="facet in data.facetShow" class="applyFilters" id="{{facet}}">

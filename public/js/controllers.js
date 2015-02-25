@@ -230,9 +230,7 @@ psgControllers.controller('psgCtrl', ['$scope', '$timeout', 'Data', '$location',
       var selected = [];
       var products = $scope.data.products;
       if (typeof $scope.param[_selected] === 'undefined') {
-        for (prod in products)
-          if (typeof products[prod][_selected] !== 'undefined' && products[prod][_selected])
-            selected.push(products[prod][_id]);
+        selected = $scope.getSelected();
 
         if (selected.length > 1) {
           $scope.param[_selected] = selected;
@@ -242,6 +240,19 @@ psgControllers.controller('psgCtrl', ['$scope', '$timeout', 'Data', '$location',
         delete $scope.param[_selected];
         $scope.url = $scope.updateUrl();
       }
+    }
+
+    $scope.getSelected = function getSelected() {
+      var prod;
+      var selected = [];
+      var products = $scope.data.products;
+      if (typeof $scope.param[_selected] === 'undefined') {
+        for (prod in products)
+          if (typeof products[prod][_selected] !== 'undefined' && products[prod][_selected])
+            selected.push(products[prod][_id]);
+      }
+
+      return selected;
     }
 
     $scope.selectProduct = function selectProduct(prodId) {
@@ -485,6 +496,11 @@ psgControllers.controller('psgCtrl', ['$scope', '$timeout', 'Data', '$location',
         'left': $th.outerWidth()
       })
 
+    }
+
+    $scope.resetFilters = function () {
+      $scope.param = {};
+      $scope.updateUrl();
     }
 
   }]);
