@@ -56,6 +56,14 @@
             <!-- psgTable Header (Facets) -->
             <tr>
               <th class="nodrag" id="{{_id}}">
+                <p>
+                  {{data.id.name}}
+                </p>
+
+                <p class="totalCount">
+                  {{data.products.length}} of {{data.totalCount}}
+                </p>
+
                 <button ng-click="toggleFacetsBlock()">
                   Show/Hide Parameters ({{tempFacetHide.length}} Hidden)
                 </button>

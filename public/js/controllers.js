@@ -132,10 +132,14 @@ psgControllers.controller('psgCtrl', ['$scope', '$timeout', 'Data', '$location',
         transformValuesToString(data.facets);
         transformValuesToString(data.facetShow);
         transformValuesToString(data.facetAll);
+        transformValuesToString(data.id);
+        transformValuesToString(data.tatalCount);
 
         $scope.data.products = data.products;
         $scope.data.facets = data.facets;
         $scope.data.facetAll = data.facetAll;
+        $scope.data.id = data.id;
+        $scope.data.totalCount = data.totalCount;
 
         if (typeof $scope.param[_facetShow] !== 'undefined') {
           $scope.data.facetShow = $scope.param[_facetShow].slice();
