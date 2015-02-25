@@ -41,8 +41,8 @@ psgDirectives.directive('applyFilters',['$compile', '$timeout', function($compil
       template_removeFacet +
       template_facetName +
       '<div range-slider orientation="vertical" min="' + range +'.minL" max="' + range + '.maxL" model-min="' + range + '.minS" model-max="' + range + '.maxS" step="0.1" decimal-places="1"></div>' +
-      '<strong>Min</strong> <input type="text" class="input-small" ng-model="' + range + '.minS">' +
-      '<strong>Max</strong> <input type="text" class="input-small" ng-model="' + range + '.maxS">' +
+      '<strong>Min</strong> <input type="text" class="input-small" ng-model="' + range + 'input.minS" ng-blur="onblur($event, \'' + range + '\', \'min\')"/>' +
+      '<strong>Max</strong> <input type="text" class="input-small" ng-model="' + range + 'input.maxS" ng-blur="onblur($event, \'' + range + '\', \'max\')"/>' +
       template_order;
     return template;
   }
@@ -81,6 +81,10 @@ psgDirectives.directive('applyFilters',['$compile', '$timeout', function($compil
           if (scope.facet === _id) {
             $(element).addClass('nodrag');
           }
+
+          $(element).find('.input-small').on('focus', function(e){
+            e.stopPropagation();
+          });
           // -----------
 
           if (facet.filterView === _rangeSlider) {
@@ -117,6 +121,10 @@ psgDirectives.directive('applyFilters',['$compile', '$timeout', function($compil
               minS: minS + 0.1, // min State
               maxS: maxS - 0.1 // max State
             };
+            scope[range + 'input'] = {
+              minS: minS,
+              maxS: maxS
+            }
 
             // ----- Watch RangeSlider's varibles ----- //
             var firstMin = true;
@@ -128,8 +136,10 @@ psgDirectives.directive('applyFilters',['$compile', '$timeout', function($compil
                 firstMin = false;
               }
 
-              if (newValue !== oldValue)
+              if (newValue !== oldValue) {
                 scope[range].minS = scope.getNextValue(fOptionsValues, newValue);
+                scope[range + 'input'].minS = scope[range].minS;
+              }
             });
 
             var firstMax = true;
@@ -141,13 +151,15 @@ psgDirectives.directive('applyFilters',['$compile', '$timeout', function($compil
                 firstMax = false;
               }
 
-              if (newValue !== oldValue)
+              if (newValue !== oldValue){
                 scope[range].maxS = scope.getNextValue(fOptionsValues, newValue);
+                scope[range + 'input'].maxS = scope[range].maxS;
+              }
 
               //console.log(scope.data.facets[scope.facet].options)
             });
             // -------------------- //
-
+/*
             scope.$watch('data.facets[facet].options', function(newValue, oldValue) {
               var facet = scope.data.facets[scope.facet];
               var facetOptions = facet.options;
@@ -176,7 +188,7 @@ psgDirectives.directive('applyFilters',['$compile', '$timeout', function($compil
 
               scope[range].minS = minS;
               scope[range].maxS = maxS;
-            });
+            });*/
 
 
             // ----- Send params to $scope.params ------ //
@@ -207,6 +219,25 @@ psgDirectives.directive('applyFilters',['$compile', '$timeout', function($compil
             });
 
             // -------------------- //
+
+            scope.onblur = function ($event, range, handle) {
+              if (handle === 'min') {
+                scope[range].minS = scope[range + 'input'].minS;
+              } else if (handle === 'max') {
+                scope[range].maxS = scope[range + 'input'].maxS;
+              }
+              $timeout(function(){
+                scope.toggleParam(
+                  scope.facet,
+                  [
+                    scope[range].minS + '',
+                    scope[range].maxS + ''
+                  ],
+                  facet.filterView
+                );
+              }, 0)
+
+            }
           }
 
     }

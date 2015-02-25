@@ -52,7 +52,6 @@ psgControllers.controller('psgCtrl', ['$scope', '$timeout', 'Data', '$location',
 
     // on init and change of location (url)
     $scope.$on('$locationChangeSuccess', function(next, current) {
-      console.log(2)
       // initialize param with params from url
       $scope.param = initParam();
       // initialize url variable with $location.url
@@ -63,9 +62,7 @@ psgControllers.controller('psgCtrl', ['$scope', '$timeout', 'Data', '$location',
 
     // on start changing location (load)
     $scope.$on('$locationChangeStart', function(next, current) {
-      //if ($location.url() === '') $location.url('?')
-       //$location.url('')
-      console.log(1)
+
     });
 
 
@@ -478,6 +475,8 @@ psgControllers.controller('psgCtrl', ['$scope', '$timeout', 'Data', '$location',
       }
 
     }
+
+
 
   }]);
 
