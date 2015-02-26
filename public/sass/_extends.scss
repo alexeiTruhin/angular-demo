@@ -53,8 +53,8 @@
   opacity: $trans;
 }
 
-@mixin sj-font {
-  font-family: 'sj';
+@mixin psg-icons {
+  font-family: 'psg-icons';
   font-weight: normal;
   font-style: normal;
   text-indent: 0;
@@ -66,18 +66,7 @@
 }
 
 @mixin latoBlack {
-  font-family: "LatoBlack", Helvetica, Arial, sans-serif;
-}
-
-@mixin myriad {
-  font-family: "MyriadPro", Helvetica, Arial, sans-serif;
-  .lt-ie9 & {
-    letter-spacing: -4px;
-  }
-}
-
-@mixin myriadCond {
-  font-family: "MyriadProCond", Impact, Helvetica, Arial, sans-serif;
+  font-family: "LatoBlack", "Lato", Helvetica, Arial, sans-serif;
 }
 
 @mixin placeholder($color) {
@@ -116,15 +105,6 @@
   }
 }
 
-//WTF??? (to check)
-%clearfix_:after {
-  content: '.';
-  clear: both;
-  display: block;
-  height: 0;
-  visibility: hidden;
-}
-
 %clearfix {
   *zoom: 1;
   &:before,
@@ -149,17 +129,6 @@
   }
 }
 
-
-
-@mixin reset-container {
-  max-width: 100%;
-  width: auto;
-  padding-left: 0;
-  padding-right: 0;
-  margin-left: 0;
-  margin-right: 0;
-}
-
 $base-font-size: 16px;
 
 @function calculate-rem($size) {
@@ -167,32 +136,15 @@ $base-font-size: 16px;
   @return #{$rem-size}rem;
 }
 
-@mixin fontsize-rem($size) {
-  font-size: $size;
-  font-size: calculate-rem($size);
-}
-
-@mixin lineheight-rem($size) {
-  line-height: $size;
-  line-height: calculate-rem($size);
-}
-
-@mixin fontParams($size, $lh) {
-  font-size: $size;
-  line-height: $lh;
-  font-size: calculate-rem($size);
-  line-height: calculate-rem($lh);
-}
-
-.basic-format-text {
-  @include fontsize-rem(14px);
+%basic-format-text {
+  @include scale(font-size, 14px);
   h2 {
-    @include fontsize-rem(16px);
+    @include scale(font-size, 16px);
     @include scale(margin-bottom, 10px);
     @include scale(margin-top, 15px);
   }
   h3 {
-    @include fontsize-rem(14px);
+    @include scale(font-size, 14px);
     font-weight: bold;
   }
   p {
@@ -222,161 +174,6 @@ $base-font-size: 16px;
     }
   }
 }
-
-// Social media + icons.
-%extend-facebook {
-  &:after {
-    content: '\a607';
-  }
-}
-
-%extend-twitter {
-  &:after {
-    content: '\a600';
-  }
-}
-
-%extend-linkedin {
-  &:after {
-    content: '\a606';
-  }
-}
-
-%extend-rss {
-  &:after {
-    content: '\a603';
-  }
-}
-
-%extend-gplus {
-  &:after {
-    content: '\a601';
-  }
-}
-
-%extend-addcontact {
-  &:after {
-    content: '\a60a';
-  }
-}
-
-%extend-s {
-  &:after {
-    content: '\e605';
-  }
-}
-
-%extend-business {
-  &:after {
-    content: '\e606';
-  }
-}
-
-%extend-file {
-  &:after {
-    content: '\e607';
-  }
-}
-
-%extend-person {
-  &:after {
-    content: '\e608';
-  }
-}
-
-%extend-close {
-  &:after {
-    content: '\e60f';
-  }
-}
-
-%extend-close-circle{
-  &:after {
-    content: '\e610';
-    display: inline-block;
-    @include sj-font;
-  }
-}
-
-%large-header {
-
-  line-height: .9em;
-  font-weight: bold;
-  text-transform: uppercase;
-  @include fontsize-rem(36px);
-  @include myriadCond;
-  @include at-breakpoint(480px) {
-    @include fontsize-rem(47px);
-  }
-
-  @include at-breakpoint(768px) {
-    @include fontsize-rem(62px);
-  }
-}
-
-%tooltip-small{
-  position: absolute;
-  display: none;
-  margin: 0;
-  @include scale(top, -57px);
-  left: auto;
-  @include scale(right, -350px);
-  @include fontsize-rem(10px);
-  @include lineheight-rem(20px);
-  @include scale(padding, 15px 5px 15px 10px);
-  z-index: 1;
-  @include scale(min-height, 100px);
-  box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
-  @include scale(width, 300px);
-  height: auto;
-  background: #F4F4F4;
-  border: 1px solid #ccc;
-  &:before,
-  &:after {
-   content: '';
-   width: 0;
-   height: 0;
-   position: absolute;
-   @include scale(top, 42px);
-   @include scale(right, -28px);
-   @include scale(left, -18px);
-   @include scale(margin-left, -10px);
-   border-style: solid;
-   border-width: 25px 28px 25px 0;
-   border-color: transparent #ccc transparent transparent;
-  }
-  &:after {
-   @include scale(top, 43px);
-   @include scale(right, -27px);
-   @include scale(left, -17px);
-   border-width: 24px 27px 24px 0;
-   border-color: transparent #f4f4f4 transparent transparent;
-  }
-}
-
-%search-submit{
-  border: 0 none;
-  color: transparent;
-  font-size: 0;
-  position: absolute;
-  @include scale(width, 28px);
-  @include scale(height, 28px);
-  right: 0;
-  top: 0;
-  @include background(image-url("search_button.svg") no-repeat 0 0);
-  .no-svg & {
-    @include background(image-url("search_button.png") no-repeat 0 0);
-    @include scale(top, 4px);
-  }
-}
-
-%search-label{
-  @include fontsize-rem(14px);
-  line-height: 1.4;
-  @include scale(margin-right, 10px);
-}
-
-
 
 //Setting svg/png file, '$name-file',  as background image, rescaling img for '$zoom: true'
 

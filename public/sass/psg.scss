@@ -5,7 +5,19 @@
 @import 'susyone';
 @import 'breakpoint';
 
+//FONTS
+// FONTS psg_icons
+@include font-face("psg-icons", font-files("psg_icons.woff", "woff", "psg_icons.ttf", "truetype", "psg_icons.svg#psg_icons", "svg"), "psg_icons.eot", normal, normal);
+//   Lato Font
+@include font-face('Lato', font-files('lato-regular.woff', 'lato-regular.ttf', 'lato-regular.svg'), 'lato-regular.eot', normal, normal);
+@include font-face('Lato', font-files('lato-bold.woff', 'lato-bold.ttf','lato-bold.svg'), 'lato-bold.eot', bold, normal);
+@include font-face('Lato', font-files('lato-italic.woff', 'lato-italic.ttf', 'lato-italic.svg'), 'lato-italic.eot', normal, italic);
+@include font-face('Lato', font-files('lato-boldItalic.woff', 'lato-boldItalic.ttf', 'lato-boldItalic.svg'), 'lato-boldItalic.eot', bold, italic);
+@include font-face('LatoBlack', font-files('lato-black.woff', 'lato-black.ttf', 'lato-black.svg'), 'lato-black.eot', normal, normal);
+
+
 @import 'reset';
+@import 'icons';
 @import 'variables';
 @import 'extends';
 

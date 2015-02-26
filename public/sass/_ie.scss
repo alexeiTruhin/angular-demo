@@ -21,7 +21,7 @@
   }
   .copyright{
     h2{
-      @include fontsize-rem(18px);
+      @include scale(font-size, 18px);
     }
   }
   .imglink{

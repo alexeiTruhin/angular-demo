@@ -20,26 +20,18 @@ psgDirectives.directive('applyFilters',['$compile', '$timeout', function($compil
   var rangeSliderCount = 0;
 
   // ---- Templates -----//
-  var template_facetName = '{{data.facets[facet].name}}';
-  var template_order =
-      '<div class="order">' +
-        '<a href ng-click="setOrder(facet, \'asc\')">(&#9650;)</a> | <a href ng-click="setOrder(facet, \'desc\')">(&#9660;)</a>' +
-      '</div>';
-  var template_compareSelectedButton =
-      '<span ng-if="facet === ' + _id + '">' +
-        '<button ng-click="compareSelected()">' +
-          'Compare Selected' +
-        '</button>' +
-      '</span>';
-  var template_draghandle = '<div class="draghandle"> drag </div>';
-  var template_removeFacet = '<div class="removeFacet"> <a href ng-click="removeFacet(facet)"> removeFacet </a></div>';
+  var template_facetName = '<p class="facet_title">{{data.facets[facet].name}}</p>';
+  var template_draghandle = '<span class="draghandle"></span>';
+  var template_removeFacet = '<a href ng-click="removeFacet(facet)" class="removeFacet"></a>';
 
 
   function getRangeSliderTemplate () {
     var range = 'range' + ++rangeSliderCount;
     var template =  template_draghandle +
+      '<div class="facet_top">' +
       template_removeFacet +
       template_facetName +
+      '</div>'
       '<div range-slider orientation="vertical" min="' + range +'.minL" max="' + range + '.maxL" model-min="' + range + '.minS" model-max="' + range + '.maxS" step="0.1" decimal-places="1"></div>' +
       '<strong>Min</strong> <input type="text" class="input-small" ng-model="' + range + 'input.minS" ng-blur="onblur($event, \'' + range + '\', \'min\')"/>' +
       '<strong>Max</strong> <input type="text" class="input-small" ng-model="' + range + 'input.maxS" ng-blur="onblur($event, \'' + range + '\', \'max\')"/>';
