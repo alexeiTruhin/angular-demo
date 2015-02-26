@@ -13,9 +13,9 @@ psgControllers.controller('psgCtrl', ['$scope', '$timeout', 'Data', '$location',
     _selected = '_selected',
     _id = 'id',
     _order = '_order',
-    _$psgTable = '.psgTable',
-    _$psgFacetsList = '.psgFacetsList',
-    _$psgFacetsBlock = '.psgFacetsBlock';
+    _$psgTable = '.psg-table',
+    _$psgFacetsList = '.psg-facets-list',
+    _$psgFacetsBlock = '.psg-facets-block';
 
     $scope._facetShow = _facetShow;
     $scope._selected = _selected;

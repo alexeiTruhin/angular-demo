@@ -23,22 +23,22 @@
 
   <div ng-app="psgApp">
     <div ng-controller="psgCtrl">
-      <div class="psgDiv">
+      <div class="psg">
 
-        <div class="psgFacetsBlock">
-          <div class="psgFacetsQuery">
+        <div class="psg-facets-block">
+          <div class="psg-facets-query">
             <p>Search Headers:
-              <input id="queryParam" ng-model="query" class="ng-pristine ng-valid">
+              <input id="queryParam" ng-model="query">
             </p>
           </div>
-          <div class="psgFacets">
+          <div class="psg-facets">
             <div class="column show">
-              <ul ui-sortable="psgFacetsSort" ng-model="tempFacetShow" class="psgFacetsList">
+              <ul ui-sortable="psgFacetsSort" ng-model="tempFacetShow" class="psg-facets-list">
                 <li ng-repeat="item in tempFacetShow|filter:query" class="item">{{item}}</li>
               </ul>
             </div>
             <div class="column hide">
-              <ul ui-sortable="psgFacetsSort" ng-model="tempFacetHide" class="psgFacetsList">
+              <ul ui-sortable="psgFacetsSort" ng-model="tempFacetHide" class="psg-facets-list">
                 <li ng-repeat="item in tempFacetHide|filter:query" class="item">{{item}}</li>
               </ul>
             </div>
@@ -51,45 +51,47 @@
         </div>
 
 
-        <div class="psgPreTable"> <!-- scrollable -->
-          <table class="psgTable dragbleTable">
+        <div class="psg-pretable"> <!-- scrollable -->
+          <table class="psg-table dragbleTable">
             <!-- psgTable Header (Facets) -->
             <tr>
               <th class="nodrag" id="{{_id}}">
-                <p>
-                  {{data.id.name}}
-                </p>
+                <div class="psg-facet-body">
+                  <p class="psg-facet-title">
+                    {{data.id.name}}
+                  </p>
 
-                <p class="totalCount">
-                  {{data.products.length}} of {{data.totalCount}}
-                </p>
+                  <p class="psg-total-count">
+                    {{data.products.length}} of {{data.totalCount}}
+                  </p>
 
-                <button ng-click="toggleFacetsBlock()">
-                  Show/Hide Parameters ({{tempFacetHide.length}} Hidden)
-                </button>
-                <button ng-click="resetFilters()">
-                  Reset Filters
-                </button>
+                  <button class="psg-button psg-toggle-params" ng-click="toggleFacetsBlock()">
+                    Show/Hide Parameters <br/>({{tempFacetHide.length}} Hidden)
+                  </button>
+                  <button class="psg-button psg-reset-filters" ng-click="resetFilters()">
+                    <span>Reset Filters</span>
+                  </button>
 
-                <button ng-click="compareSelected()" ng-class="{active: !!param[_selected]}" ng-disabled="!param[_selected] && getSelected().length <= 1">
-                  {{!!param[_selected] ? 'View All Matches' : 'Compare Selected'}}
-                </button>
+                  <button class="psg-button psg-compare-selected" ng-click="compareSelected()" ng-class="{active: !!param[_selected]}" ng-disabled="!param[_selected] && getSelected().length <= 1">
+                    <span>{{!!param[_selected] ? 'View All Matches' : 'Compare Selected'}}</span>
+                  </button>
+                </div>
               </th>
               <th ng-repeat="facet in data.facetShow" class="applyFilters" id="{{facet}}">
               </th>
             </tr>
             <!-- psgTable order -->
             <tr>
-              <td>
-                <div class="order">
-                  <a href ng-click="setOrder(_id, 'asc')">(&#9650;)</a> |
-                  <a href ng-click="setOrder(_id, 'desc')">(&#9660;)</a>
+              <td class="psg-order-block">
+                <div class="psg-order">
+                  <a class="psg-order-asc" href ng-click="setOrder(_id, 'asc')"></a>
+                  <a class="psg-order-desc" href ng-click="setOrder(_id, 'desc')"></a>
                 </div>
               </td>
-              <td ng-repeat="facet in data.facetShow">
-                <div class="order">
-                  <a href ng-click="setOrder(facet, 'asc')">(&#9650;)</a> |
-                  <a href ng-click="setOrder(facet, 'desc')">(&#9660;)</a>
+              <td class="psg-order-block" ng-repeat="facet in data.facetShow">
+                <div class="psg-order">
+                  <a class="psg-order-asc" href ng-click="setOrder(facet, 'asc')"></a>
+                  <a class="psg-order-desc" href ng-click="setOrder(facet, 'desc')"></a>
                 </div>
               </td>
             </tr>

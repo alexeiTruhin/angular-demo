@@ -12,42 +12,51 @@ psgDirectives.directive('applyFilters',['$compile', '$timeout', function($compil
     _order = '_order',
     _rangeSlider = 'rangeSlider',
     _id = 'id',
-    _$psgTable = '.psgTable',
-    _$psgFacetsList = '.psgFacetsList';
+    _$psgTable = '.psg-table',
+    _$psgFacetsList = '.psg-facets-list';
 
     // -------------------------------------------- //
 
   var rangeSliderCount = 0;
 
   // ---- Templates -----//
-  var template_facetName = '<p class="facet_title">{{data.facets[facet].name}}</p>';
+  var template_facetName = '<p class="psg-facet-title">{{data.facets[facet].name}}</p>';
   var template_draghandle = '<span class="draghandle"></span>';
   var template_removeFacet = '<a href ng-click="removeFacet(facet)" class="removeFacet"></a>';
 
 
   function getRangeSliderTemplate () {
     var range = 'range' + ++rangeSliderCount;
-    var template =  template_draghandle +
-      '<div class="facet_top">' +
+    var template =
+      '<div class="psg-facet-top">' +
+      template_draghandle +
       template_removeFacet +
-      template_facetName +
-      '</div>'
-      '<div range-slider orientation="vertical" min="' + range +'.minL" max="' + range + '.maxL" model-min="' + range + '.minS" model-max="' + range + '.maxS" step="0.1" decimal-places="1"></div>' +
-      '<strong>Min</strong> <input type="text" class="input-small" ng-model="' + range + 'input.minS" ng-blur="onblur($event, \'' + range + '\', \'min\')"/>' +
-      '<strong>Max</strong> <input type="text" class="input-small" ng-model="' + range + 'input.maxS" ng-blur="onblur($event, \'' + range + '\', \'max\')"/>';
+      '</div>' +
+      '<div class="psg-facet-body">' +
+        template_facetName +
+        '<div class="psg-range-slider-block">' +
+        '<div class="psg-range-slider" range-slider orientation="vertical" min="' + range +'.minL" max="' + range + '.maxL" model-min="' + range + '.minS" model-max="' + range + '.maxS" step="0.1" decimal-places="1"></div>' +
+        '<input type="text" class="psg-range-slider-input psg-range-slider-input-min" ng-model="' + range + 'input.minS" ng-blur="onblur($event, \'' + range + '\', \'min\')"/>' +
+        '<input type="text" class="psg-range-slider-input psg-range-slider-input-max" ng-model="' + range + 'input.maxS" ng-blur="onblur($event, \'' + range + '\', \'max\')"/>' +
+        '</div><div class="clearfix"></div>' +
+      '</div>';
     return template;
   }
 
   function getCheckboxTemplate () {
-    var template = template_draghandle +
+    var template =
+      '<div class="psg-facet-top">' +
+      template_draghandle +
       template_removeFacet +
+      '</div><div class="psg-facet-body">' +
       template_facetName +
       '<p ng-repeat="option in data.facets[facet].options">' +
         '<label>' +
           '<input type="checkbox" ng-click="toggleParam(facet, option[0], data.facets[facet].filterView)" ng-checked="option[2]"/>' +
-          '{{option[0]}} ({{option[1]}})' +
+          '{{option[0]}} <span class="psg-result-number">({{option[1]}})</span>' +
         '</label>' +
-      '</p>';
+      '</p>' +
+      '</div>';
     return template;
   }
 
@@ -72,7 +81,7 @@ psgDirectives.directive('applyFilters',['$compile', '$timeout', function($compil
             $(element).addClass('nodrag');
           }
 
-          $(element).find('.input-small').on('focus', function(e){
+          $(element).find('.psg-range-slider-input').on('focus', function(e){
             e.stopPropagation();
           });
           // -----------
@@ -242,8 +251,8 @@ psgDirectives.directive('dragbleTable',['$compile', '$timeout', function($compil
   _order = '_order',
   _rangeSlider = 'rangeSlider',
   _id = 'id',
-  _$psgTable = '.psgTable',
-  _$psgFacetsList = '.psgFacetsList';
+  _$psgTable = '.psg-table',
+  _$psgFacetsList = '.psg-facets-list';
 
   // -------------------------------------------- //
 
@@ -251,7 +260,7 @@ psgDirectives.directive('dragbleTable',['$compile', '$timeout', function($compil
     restrict: 'C',
     link: function (scope, element, attr) {
 
-      $('.psgTable').sorttable({
+      $(_$psgTable).sorttable({
           items: '>:not(.nodrag)',
           handle: '.draghandle', // drag using handle
           axis: 'x',
@@ -268,7 +277,7 @@ psgDirectives.directive('dragbleTable',['$compile', '$timeout', function($compil
 
             // Get new order
             var facetShow = [];
-            ui.item.parents('.psgTable').children().find('>tr.ui-sortable >th').each(function(index, item) {
+            ui.item.parents(_$psgTable).children().find('>tr.ui-sortable >th').each(function(index, item) {
               if ($(item).attr('id') !== _id) {
                 facetShow.push($(item).attr('id'));
                 $(item).attr('style', '');

@@ -1,12 +1,16 @@
-.psgDiv {
+.psg {
   margin: 0 auto;
   @include lato;
+  @include scale(font-size, 12px);
   @include scale(margin-top, 60px);
   @include scale(max-width, 1024px);
+  color: #47515b;
   position: relative;
+  overflow-x: auto;
 }
 
-.psgTable {
+
+.psg-table {
   border: 2px solid #e3e4e8;
   border-collapse: collapse;
   margin: 0 auto;
@@ -15,16 +19,19 @@
 
   th, td {
     border: 1px solid #e3e4e8;
-    @include scale(padding, 10px);
     @include scale(width, 150px);
   }
 
   th {
+    @include scale(font-size, 14px);
     border-bottom: 2px solid #e3e4e8;
     background: #bec6cb;
     position: relative;
-    @include scale(padding-bottom, 40px);
-    @include scale(padding-top, 70px);
+    vertical-align: top;
+  }
+
+  td {
+    @include scale(padding, 10px);
   }
 
   tr {
@@ -37,25 +44,206 @@
   }
   th:first-child, td:first-child {
     @include scale(width, 195px);
-    @include scale(padding, 0 14px 14px);
+    .psg-facet-body {
+      @include scale(padding, 0 14px 14px);
+    }
+    .psg-facet-title {
+      @include scale(min-height, 58px);
+      text-align: center;
+    }
+  }
+  // ------------------
+
+  .psg-facet-top {
+    @include scale(height, 23px);
+    background: #b9bfc3;
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+    /* Dragble */
+    .draghandle {
+      cursor: move;
+      &:after {
+        @include psg-icons;
+        @include scale(font-size, 48px);
+        @include scale(line-height, 23px);
+        @extend %drag_icon;
+        color: #fff;
+      }
+    }
+
+    /* Remove Facet */
+    .removeFacet {
+      cursor: pointer;
+      position: absolute;
+      @include scale(right, 4px);
+      text-decoration: none;
+      &:after {
+        @include psg-icons;
+        @include scale(font-size, 18px);
+        @include scale(line-height, 23px);
+        @extend %remove_icon;
+        color: #fff;
+      }
+    }
   }
 
-  .order {
+  .psg-facet-body {
+    @include scale(padding, 0 10px 14px);
+    @include scale(min-height, 220px);
+    position: relative;
+    z-index: 3;
+  }
+
+  .psg-facet-title {
+    @include scale(font-size, 14px);
+    @include scale(padding-top, 6px);
+    @include scale(min-height, 70px);
+    color: #47515b;
+    font-weight: bold;
+  }
+
+  .psg-total-count {
+    @include scale(padding, 0 0 8px);
+    @include scale(font-size, 24px);
+    color: #005696;
+    font-weight: bold;
     text-align: center;
+  }
+
+  .psg-order-block {
+    padding: 0;
+  }
+
+  .psg-order {
+    text-align: center;
+    a {
+      @include scale(padding, 8px);
+      text-decoration: none;
+      &:after {
+        @include psg-icons;
+        @include scale(font-size, 25px);
+        color: #005696;
+      }
+      &.psg-order-asc:after {
+        @extend %arrowup_icon;
+      }
+      &.psg-order-desc:after {
+        @extend %arrowdown_icon;
+        @include scale(top, -2px);
+        position: relative;
+      }
+    }
+  }
+
+  .psg-result-number {
+    color: #6b7d8e;
   }
 }
 
+/* PSG Buttons */
+.psg-button {
+  @include border-radius(4px);
+  @include scale(font-size, 12px);
+  @include scale(margin-bottom, 7px);
+  @include scale(padding, 10px);
+  background: #47515b;
+  border: 0;
+  color: #fff;
+  cursor: pointer;
+  font-weight: bold;
+  width: 100%;
 
+  &.psg-toggle-params{
+    background: #47515b;
+  }
+  &.psg-reset-filters{
+    background: #005696;
+    span {
+      &:before {
+        @include psg-icons;
+        @include scale(font-size, 18px);
+        @include scale(line-height, 12px);
+        @include scale(padding, 0 4px 0 0);
+        @extend %reset_icon;
+        color: #fff;
+        height: 12px;
+        display: inline-block;
+        overflow: hidden;
+        position: relative;
+        top: 1px;
+      }
+    }
+  }
+  &.psg-compare-selected{
+    background: #8d9600;
+    span {
+      &:before {
+        @include psg-icons;
+        @include scale(font-size, 14px);
+        @include scale(line-height, 12px);
+        @include scale(padding, 0 4px 0 0);
+        @extend %copy_icon;
+        color: #fff;
+        height: 12px;
+        display: inline-block;
+        position: relative;
+        top: 1px;
+      }
+    }
+    &.active {
+      background: #b9c408;
+    }
+    &:disabled {
+      @include opacity(.5);
+    }
+  }
+}
 
 
 /* rangeSlider */
+.ngrs-range-slider {
+  @include border-radius(0);
+  @include box-shadow(none);
+  background: none;
+  border: 0;
+  &.ngrs-focus {
+    @include box-shadow(none);
+    background: none;
+  }
+}
+.ngrs-range-slider.ngrs-vertical .ngrs-runner {
+  @include scale(height, 125px);
+  @include scale(width, 22px);
+  margin: 0;
+}
+.ngrs-range-slider.ngrs-vertical {
+  @include scale(width, 32px);
+  margin: 0 auto;
+}
+
+.ngrs-range-slider.ngrs-vertical .ngrs-handle-min i,
+.ngrs-range-slider.ngrs-vertical .ngrs-handle-max i {
+  background: none;
+}
+
+.ngrs-range-slider .ngrs-join {
+  background: #9fa4a8;
+}
+
+.ngrs-range-slider.ngrs-vertical .ngrs-join {
+  @include scale(width, 6px);
+  @include scale(margin, 0 0 0 -3px);
+}
+
+.ngrs-range-slider.ngrs-vertical .ngrs-handle {
+  @include scale(height, 8px);
+  @include scale(margin, -4px 0 0);
+}
+
 .ngrs-handle.ngrs-handle-min,
 .ngrs-handle.ngrs-handle-max {
   left: auto !important;
-}
-
-.ngrs-handle.ngrs-handle-max {
-
 }
 
 .ngrs-join {
@@ -63,25 +251,31 @@
   right: 50% !important;
 }
 
-/* Dragble */
-.draghandle {
-  cursor: move;
-  height: 30px;
-  position: absolute;
-  top: 0;
-  width: 90%;
+.psg-range-slider-block {
+  position: relative;
 }
 
-/* Remove Facet */
-.removeFacet {
-  cursor: delete;
-  height: 30px;
-  position: absolute;
-  top: 30px;
-  width: 90%;
+.psg-range-slider {
+  float: left;
 }
+.psg-range-slider-input {
+  @include scale(left, 40px);
+  @include scale(width, 50px);
+  border:1px solid #aab4b8;
+  color: #47515b;
+  background: #fff;
+  position: absolute;
+  text-align: center;
+  &.psg-range-slider-input-min {
+    @include scale(top, 4px);
+  }
+  &.psg-range-slider-input-max {
+    @include scale(top, 108px);
+  }
+}
+
 /* ------ psgFacets ------- */
-.psgFacets {
+.psg-facets {
   padding-bottom: 20px;
   .column {
     border: 1px solid #000;
@@ -104,11 +298,11 @@
 
 
 /* Scrollable */
-.psgPreTable {
+.psg-pretable {
   .scrollable {
     position: relative;
     overflow: scroll;
-    .psgTable {
+    .psg-table {
       margin-left: 151px;
       th, td {
         width: 250px;
@@ -136,6 +330,7 @@
 
 
 /* RangeSlider */
+
 .ngrs-range-slider .ngrs-runner,
 .ngrs-range-slider .ngrs-handle,
 .ngrs-range-slider .ngrs-handle i,
@@ -145,7 +340,7 @@
 
 
 /* Facets Block */
-.psgFacetsBlock {
+.psg-facets-block {
   background: #fff;
   border:2px solid #000;
   display: none;
