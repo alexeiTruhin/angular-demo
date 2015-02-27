@@ -1,7 +1,8 @@
 {
   "products":[
     {
-      "id":"CY8C3244AXI-153 Datasheet",
+      "id":"CY8C3244AXI-153",
+      "name":"CY8C3244AXI-153 Datasheet",
       "status":"In Production",
       "digital_block": 16,
       "gpio": 62,
@@ -9,7 +10,8 @@
       "maxV": 5.5
     },
     {
-      "id":"CY8C3244AXI-153T Datasheet",
+      "id":"CY8C3244AXI-153T",
+      "name":"CY8C3244AXI-153T Datasheet",
       "status":"In Production",
       "digital_block": 16,
       "gpio": 25,
@@ -17,7 +19,8 @@
       "maxV": 5.5
     },
     {
-      "id":"CY8C3244LTI-123 Datasheet",
+      "id":"CY8C3244LTI-123",
+      "name":"CY8C3244LTI-123 Datasheet",
       "status":"In Production",
       "digital_block": 20,
       "gpio": 38,
@@ -25,7 +28,8 @@
       "maxV": 3.6
     },
     {
-      "id":"CY8C3244LTI-123T Datasheet",
+      "id":"CY8C3244LTI-123T",
+      "name":"CY8C3244LTI-123T Datasheet",
       "status":"In Production",
       "digital_block": 20,
       "gpio": 25,
@@ -33,7 +37,8 @@
       "maxV": 5.5
     },
     {
-      "id":"CY8C3244LTI-130 Datasheet",
+      "id":"CY8C3244LTI-130",
+      "name":"CY8C3244LTI-130 Datasheet",
       "status":"In Production",
       "digital_block": 16,
       "gpio": 38,
@@ -41,7 +46,8 @@
       "maxV": 5.5
     },
     {
-      "id":"CY8C3244LTI-130T Datasheet",
+      "id":"CY8C3244LTI-130T",
+      "name":"CY8C3244LTI-130T Datasheet",
       "status":"In Production",
       "digital_block": 16,
       "gpio": 74,
@@ -49,7 +55,8 @@
       "maxV": 3.6
     },
     {
-      "id":"CY8C3244PVI-133 Datasheet",
+      "id":"CY8C3244PVI-133",
+      "name":"CY8C3244PVI-133 Datasheet",
       "status":"Sampling",
       "digital_block": 16,
       "gpio": 38,
@@ -57,7 +64,8 @@
       "maxV": 5.5
     },
     {
-      "id":"CY8C3244PVI-133T Datasheet",
+      "id":"CY8C3244PVI-133T",
+      "name":"CY8C3244PVI-133T Datasheet",
       "status":"In Production",
       "digital_block": 16,
       "gpio": 74,
@@ -148,3 +156,5 @@
   },
   "totalCount" : 8
 }
+
+

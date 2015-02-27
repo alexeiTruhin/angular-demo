@@ -12,6 +12,7 @@ psgControllers.controller('psgCtrl', ['$scope', '$timeout', 'Data', '$location',
     _facetShow = '_facetShow',
     _selected = '_selected',
     _id = 'id',
+    _name = 'name',
     _order = '_order',
     _$psgTable = '.psg-table',
     _$psgFacetsList = '.psg-facets-list',
@@ -22,6 +23,7 @@ psgControllers.controller('psgCtrl', ['$scope', '$timeout', 'Data', '$location',
     $scope._order = _order;
     $scope._rangeSlider = _rangeSlider;
     $scope._id = _id;
+    $scope._name = _name;
     $scope._$psgTable = _$psgTable;
     $scope._$psgFacetsList = _$psgFacetsList;
     // -------------------------------------------- //

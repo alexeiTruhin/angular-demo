@@ -12,6 +12,7 @@ psgDirectives.directive('applyFilters',['$compile', '$timeout', function($compil
     _order = '_order',
     _rangeSlider = 'rangeSlider',
     _id = 'id',
+    _name = 'name',
     _$psgTable = '.psg-table',
     _$psgFacetsList = '.psg-facets-list';
 
@@ -251,6 +252,7 @@ psgDirectives.directive('dragbleTable',['$compile', '$timeout', function($compil
   _order = '_order',
   _rangeSlider = 'rangeSlider',
   _id = 'id',
+  _name = 'name',
   _$psgTable = '.psg-table',
   _$psgFacetsList = '.psg-facets-list';
 
