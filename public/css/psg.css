@@ -203,7 +203,7 @@ a[href*='mailto:'] {
   -webkit-background-clip: padding;
   background-clip: padding-box;
   border-bottom: 2px solid #e3e4e8;
-  background: #bec6cb;
+  background-color: #bec6cb;
   position: relative;
   vertical-align: top;
 }
@@ -254,6 +254,7 @@ a[href*='mailto:'] {
   top: -12px;
   top: -0.75rem;
   color: #fff;
+  line-height: 100%;
   position: relative;
 }
 .psg-table .psg-facet-top .removeFacet {

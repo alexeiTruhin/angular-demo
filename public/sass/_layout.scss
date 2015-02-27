@@ -26,7 +26,7 @@
     @include scale(font-size, 14px);
     @include background-clip(padding-box);
     border-bottom: 2px solid #e3e4e8;
-    background: #bec6cb;
+    background-color: #bec6cb;
     position: relative;
     vertical-align: top;
   }
@@ -70,6 +70,7 @@
         @include scale(top, -12px);
         @extend %drag_icon;
         color: #fff;
+        line-height: 100%;
         position: relative;
       }
     }
