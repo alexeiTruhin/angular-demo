@@ -24,6 +24,7 @@
 
   th {
     @include scale(font-size, 14px);
+    @include background-clip(padding-box);
     border-bottom: 2px solid #e3e4e8;
     background: #bec6cb;
     position: relative;
@@ -66,9 +67,10 @@
       &:after {
         @include psg-icons;
         @include scale(font-size, 48px);
-        @include scale(line-height, 23px);
+        @include scale(top, -12px);
         @extend %drag_icon;
         color: #fff;
+        position: relative;
       }
     }
 
@@ -81,9 +83,10 @@
       &:after {
         @include psg-icons;
         @include scale(font-size, 18px);
-        @include scale(line-height, 23px);
+        @include scale(top, 2px);
         @extend %remove_icon;
         color: #fff;
+        position: relative;
       }
     }
   }
@@ -163,15 +166,15 @@
       &:before {
         @include psg-icons;
         @include scale(font-size, 18px);
-        @include scale(line-height, 12px);
+        //@include scale(line-height, 12px);
         @include scale(padding, 0 4px 0 0);
+        @include scale(height, 15px);
+        @include scale(top, 1px);
         @extend %reset_icon;
         color: #fff;
-        height: 12px;
         display: inline-block;
         overflow: hidden;
         position: relative;
-        top: 1px;
       }
     }
   }
@@ -181,11 +184,9 @@
       &:before {
         @include psg-icons;
         @include scale(font-size, 14px);
-        @include scale(line-height, 12px);
         @include scale(padding, 0 4px 0 0);
         @extend %copy_icon;
         color: #fff;
-        height: 12px;
         display: inline-block;
         position: relative;
         top: 1px;
@@ -205,11 +206,9 @@
       &:before {
         @include psg-icons;
         @include scale(font-size, 11px);
-        @include scale(line-height, 11px);
         @include scale(padding, 0 4px 0 0);
         @extend %reset_icon;
         color: #fff;
-        height: 11px;
         display: inline-block;
         overflow: hidden;
         position: relative;
@@ -224,11 +223,9 @@
       &:before {
         @include psg-icons;
         @include scale(font-size, 11px);
-        @include scale(line-height, 11px);
         @include scale(padding, 0 4px 0 0);
         @extend %check_icon;
         color: #fff;
-        height: 11px;
         display: inline-block;
         position: relative;
         top: 1px;

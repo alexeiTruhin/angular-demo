@@ -198,6 +198,10 @@ a[href*='mailto:'] {
 .psg-table th {
   font-size: 14px;
   font-size: 0.875rem;
+  -moz-background-clip: padding;
+  -o-background-clip: padding-box;
+  -webkit-background-clip: padding;
+  background-clip: padding-box;
   border-bottom: 2px solid #e3e4e8;
   background: #bec6cb;
   position: relative;
@@ -247,9 +251,10 @@ a[href*='mailto:'] {
   speak: none;
   font-size: 48px;
   font-size: 3rem;
-  line-height: 23px;
-  line-height: 1.4375rem;
+  top: -12px;
+  top: -0.75rem;
   color: #fff;
+  position: relative;
 }
 .psg-table .psg-facet-top .removeFacet {
   cursor: pointer;
@@ -266,9 +271,10 @@ a[href*='mailto:'] {
   speak: none;
   font-size: 18px;
   font-size: 1.125rem;
-  line-height: 23px;
-  line-height: 1.4375rem;
+  top: 2px;
+  top: 0.125rem;
   color: #fff;
+  position: relative;
 }
 .psg-table .psg-facet-body {
   padding: 0 10px 14px;
@@ -359,16 +365,16 @@ a[href*='mailto:'] {
   speak: none;
   font-size: 18px;
   font-size: 1.125rem;
-  line-height: 12px;
-  line-height: 0.75rem;
   padding: 0 4px 0 0;
   padding: 0 0.25rem 0 0;
+  height: 15px;
+  height: 0.9375rem;
+  top: 1px;
+  top: 0.0625rem;
   color: #fff;
-  height: 12px;
   display: inline-block;
   overflow: hidden;
   position: relative;
-  top: 1px;
 }
 .psg-button.psg-compare-selected {
   background: #8d9600;
@@ -381,12 +387,9 @@ a[href*='mailto:'] {
   speak: none;
   font-size: 14px;
   font-size: 0.875rem;
-  line-height: 12px;
-  line-height: 0.75rem;
   padding: 0 4px 0 0;
   padding: 0 0.25rem 0 0;
   color: #fff;
-  height: 12px;
   display: inline-block;
   position: relative;
   top: 1px;
@@ -412,12 +415,9 @@ a[href*='mailto:'] {
   speak: none;
   font-size: 11px;
   font-size: 0.6875rem;
-  line-height: 11px;
-  line-height: 0.6875rem;
   padding: 0 4px 0 0;
   padding: 0 0.25rem 0 0;
   color: #fff;
-  height: 11px;
   display: inline-block;
   overflow: hidden;
   position: relative;
@@ -434,12 +434,9 @@ a[href*='mailto:'] {
   speak: none;
   font-size: 11px;
   font-size: 0.6875rem;
-  line-height: 11px;
-  line-height: 0.6875rem;
   padding: 0 4px 0 0;
   padding: 0 0.25rem 0 0;
   color: #fff;
-  height: 11px;
   display: inline-block;
   position: relative;
   top: 1px;
@@ -707,86 +704,6 @@ a[href*='mailto:'] {
 .ngrs-range-slider .ngrs-handle i,
 .ngrs-range-slider .ngrs-join {
   cursor: default;
-}
-
-.lt-ie9 header h1,
-.lt-ie9 .leadership-top h1 {
-  font-family: "Lato", Helvetica, Arial, sans-serif;
-}
-.lt-ie9 .pane-landing-pages-all-know-hows .all-news .panel-col-last {
-  padding-top: 5px;
-  padding-top: 0.3125rem;
-}
-.lt-ie9 .all-type .all-news .all-news-image {
-  width: 150px;
-  width: 9.375rem;
-}
-.lt-ie9 .copyright h2 {
-  font-size: 18px;
-  font-size: 1.125rem;
-}
-.lt-ie9 .imglink a {
-  font-family: "Lato", Helvetica, Arial, sans-serif;
-}
-.lt-ie9 .field-name-field-slideshow-btmtxt-slide .field-slideshow,
-.lt-ie9 .field-name-field-slideshow-toptxt-slide .field-slideshow {
-  padding-bottom: 0 !important;
-  height: 290px !important;
-}
-.lt-ie9 .field-name-field-slideshow-btmtxt-slide .field-slideshow-pager a,
-.lt-ie9 .field-name-field-slideshow-toptxt-slide .field-slideshow-pager a {
-  display: inline-block;
-  float: none;
-}
-.lt-ie9 .people-item {
-  position: static;
-  margin: 0 20px 20px 0;
-  margin: 0 1.25rem 1.25rem 0;
-  display: inline-block;
-  width: 31.86004%;
-}
-.lt-ie9 .people-item:nth-child(3n) {
-  margin-right: 0;
-}
-.lt-ie9 .people-item:nth-child(3n+1) {
-  clear: left;
-}
-.lt-ie9 .page-about-us .main-section .panel-pane .pane-title {
-  display: none !important;
-}
-@media (min-width: 768px) {
-  .lt-ie9 .know_how-content-list .views-row.views-row-odd {
-    clear: both;
-  }
-}
-.lt-ie9 .banner-large {
-  position: absolute;
-}
-
-.ie-message {
-  position: relative;
-  display: none;
-  text-align: center;
-  color: #ef3923;
-  background-color: #efb38b;
-  padding: 20px;
-  padding: 1.25rem;
-  font-weight: bold;
-}
-.ie-message .close-message {
-  position: absolute;
-  top: 50%;
-  width: 32px;
-  width: 2rem;
-  height: 32px;
-  height: 2rem;
-  line-height: 1;
-  margin-left: 20px;
-  margin-left: 1.25rem;
-  margin-top: -16px;
-  margin-top: -1rem;
-  background: transparent url("../images/close-icon.png") 0 0 no-repeat;
-  cursor: pointer;
 }
 
 /*# sourceMappingURL=psg.css.map */
