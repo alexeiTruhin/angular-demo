@@ -470,11 +470,13 @@ psgControllers.controller('psgCtrl', ['$scope', '$timeout', 'Data', '$location',
     $scope.resetFacets = function() {
       delete $scope.param[_facetShow];
       $scope.url = $scope.updateUrl();
+      $scope.toggleFacetsBlock();
     }
 
     $scope.applyFacets = function() {
       $scope.param[_facetShow] = $scope.tempFacetShow.slice();
       $scope.url = $scope.updateUrl();
+      $scope.toggleFacetsBlock();
     }
 
     $scope.selectAllFacets = function() {
@@ -493,19 +495,25 @@ psgControllers.controller('psgCtrl', ['$scope', '$timeout', 'Data', '$location',
     }
 
     $scope.toggleFacetsBlock = function () {
-      var $block = $(_$psgFacetsBlock);
+      var $facet_block = $(_$psgFacetsBlock);
       var $th = $(_$psgTable).children().find('>tr >th').first();
-      $block.toggle();
-      $block.css({
+      $facet_block.toggle();
+      $facet_block.css({
         'left': $th.outerWidth()
       })
-
     }
 
     $scope.resetFilters = function () {
       $scope.param = {};
       $scope.updateUrl();
     }
+
+    /* jQuery part */
+    $(document).ready(function() {
+
+
+
+    })
 
   }]);
 

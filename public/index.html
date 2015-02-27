@@ -26,26 +26,42 @@
       <div class="psg">
 
         <div class="psg-facets-block">
-          <div class="psg-facets-query">
-            <p>Search Headers:
-              <input id="queryParam" ng-model="query">
-            </p>
-          </div>
-          <div class="psg-facets">
-            <div class="column show">
-              <ul ui-sortable="psgFacetsSort" ng-model="tempFacetShow" class="psg-facets-list">
-                <li ng-repeat="item in tempFacetShow|filter:query" class="item">{{item}}</li>
-              </ul>
+          <div class="psg-facets-wrapper">
+            <a href class="psg-facets-close" ng-click="toggleFacetsBlock()"></a>
+            <h3>Show/Hide Parameters</h3>
+            <div class="psg-facets-query">
+              <p><span>Search Headers: </span>
+                <input id="queryParam" ng-model="query">
+              </p>
             </div>
-            <div class="column hide">
-              <ul ui-sortable="psgFacetsSort" ng-model="tempFacetHide" class="psg-facets-list">
-                <li ng-repeat="item in tempFacetHide|filter:query" class="item">{{item}}</li>
-              </ul>
-            </div>
-            <div>
-              <button ng-click="resetFacets()">Reset Facets</button>
-              <button ng-click="applyFacets()">Apply Facets</button>
-              <button ng-click="selectAllFacets()">Select All</button>
+            <div class="psg-facets">
+              <div class="psg-facets-column psg-facets-column-show">
+                <p class="psg-facets-column-title">Show</p>
+                <ul ui-sortable="psgFacetsSort" ng-model="tempFacetShow" class="psg-facets-list">
+                  <li ng-repeat="item in tempFacetShow|filter:query" class="item">
+                    {{data.facets[item].name}}
+                  </li>
+                </ul>
+              </div>
+              <div class="psg-facets-column psg-facets-column-hide">
+                <p class="psg-facets-column-title">Hide</p>
+                <ul ui-sortable="psgFacetsSort" ng-model="tempFacetHide" class="psg-facets-list">
+                  <li ng-repeat="item in tempFacetHide|filter:query" class="item">
+                    {{data.facets[item].name}}
+                  </li>
+                </ul>
+              </div>
+              <div class="psg-facets-bottom">
+                <div>
+                  <button class="psg-button psg-reset-facets" ng-click="resetFacets()"><span>Reset Facets</span></button>
+                </div>
+                <div>
+                  <button class="psg-button psg-apply-facets" ng-click="applyFacets()"><span>Apply Facets</span></button>
+                </div>
+                <div>
+                  <button class="psg-button psg-select-all" ng-click="selectAllFacets()"><span>Select All</span></button>
+                </div>
+              </div>
             </div>
           </div>
         </div>

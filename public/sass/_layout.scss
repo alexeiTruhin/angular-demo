@@ -198,6 +198,43 @@
       @include opacity(.5);
     }
   }
+
+  &.psg-reset-facets {
+    background: #005696;
+    span {
+      &:before {
+        @include psg-icons;
+        @include scale(font-size, 11px);
+        @include scale(line-height, 11px);
+        @include scale(padding, 0 4px 0 0);
+        @extend %reset_icon;
+        color: #fff;
+        height: 11px;
+        display: inline-block;
+        overflow: hidden;
+        position: relative;
+        top: 1px;
+      }
+    }
+  }
+
+  &.psg-apply-facets {
+    background: #8d9600;
+    span {
+      &:before {
+        @include psg-icons;
+        @include scale(font-size, 11px);
+        @include scale(line-height, 11px);
+        @include scale(padding, 0 4px 0 0);
+        @extend %check_icon;
+        color: #fff;
+        height: 11px;
+        display: inline-block;
+        position: relative;
+        top: 1px;
+      }
+    }
+  }
 }
 
 
@@ -214,12 +251,18 @@
 }
 .ngrs-range-slider.ngrs-vertical .ngrs-runner {
   @include scale(height, 125px);
-  @include scale(width, 22px);
+  @include scale(width, 6px);
   margin: 0;
+  @include scale(margin-left, 8px);
+  background: #fff;
 }
 .ngrs-range-slider.ngrs-vertical {
   @include scale(width, 32px);
   margin: 0 auto;
+}
+
+.ngrs-range-slider.ngrs-vertical .ngrs-handle {
+  @include scale(width, 22px);
 }
 
 .ngrs-range-slider.ngrs-vertical .ngrs-handle-min i,
@@ -243,7 +286,7 @@
 
 .ngrs-handle.ngrs-handle-min,
 .ngrs-handle.ngrs-handle-max {
-  left: auto !important;
+  left: -8px !important;
 }
 
 .ngrs-join {
@@ -275,24 +318,113 @@
 }
 
 /* ------ psgFacets ------- */
+.psg-facets-block {
+  @include background-clip(padding-box);
+  @include scale(padding, 10px 20px);
+  @include scale(top, 20px);
+  @include scale(width, 500px);
+  background-color: #fff;
+  border: 4px solid rgba(#000, 0.3);
+  display: none;
+  position: absolute;
+  z-index: 12;
+
+  h3 {
+    @include scale(font-size, 16px);
+    @include scale(padding, 6px 0 8px);
+    color: #47515b;
+    font-weight: bold;
+  }
+}
+
+.psg-facets-wrapper {
+  position: relative;
+  .psg-facets-close {
+    @include scale(padding, 4px);
+    @include scale(right, -16px);
+    @include scale(top, -6px);
+    cursor: pointer;
+    position: absolute;
+    text-decoration: none;
+    z-index: 13;
+
+    &:before {
+      @include psg-icons;
+      @include scale(font-size, 24px);
+      @extend %remove_icon;
+      color: #47515b;
+    }
+  }
+}
+
+.psg-facets-query {
+  @include scale(padding, 0 0 12px);
+  p {
+    font-weight: bold;
+  }
+  span {
+    @include scale(padding-right, 6px);
+  }
+}
+
 .psg-facets {
-  padding-bottom: 20px;
-  .column {
-    border: 1px solid #000;
-    background: #ccc;
+  .psg-facets-column {
     display: inline-block;
     vertical-align: top;
 
+    .psg-facets-column-title {
+      @include scale(padding, 6px 10px);
+      @include scale(font-size, 14px);
+      @include scale(line-height, 14px);
+      font-weight: bold;
+    }
+
     ul {
-      height: 200px;
+      @include scale(width, 220px);
+      @include scale(height, 200px);
+      @include scale(padding, 5px 10px);
       list-style-type: none;
-      padding: 10px 30px;
-      width: 150px;
+      overflow-y: auto;
     }
 
     li {
+      @include scale(font-size, 12px);
+      @include scale(line-height, 14px);
+      @include scale(padding, 4px 8px);
+      @include scale(margin, 4px 0);
+      background: #bec6cb;
       cursor: pointer;
+      font-weight: bold;
     }
+
+    &.psg-facets-column-show {
+      li {
+        background: #bec6cb;
+      }
+    }
+    &.psg-facets-column-hide {
+      li {
+        background: #d8e0e5;
+      }
+    }
+  }
+}
+
+.psg-facets-bottom {
+  @include scale(margin, 12px 0 0);
+  font-size: 0;
+  > div {
+    @include scale(font-size, 12px);
+    display: inline-block;
+    text-align: center;
+    width: 33%;
+  }
+  .psg-button {
+    @include scale(padding, 5px 0);
+    @include scale(font-size, 11px);
+    @include scale(min-width, 120px);
+    text-align: center;
+    width: auto
   }
 }
 
@@ -336,15 +468,4 @@
 .ngrs-range-slider .ngrs-handle i,
 .ngrs-range-slider .ngrs-join {
   cursor: default;
-}
-
-
-/* Facets Block */
-.psg-facets-block {
-  background: #fff;
-  border:2px solid #000;
-  display: none;
-  position: absolute;
-  z-index: 12;
-
 }
