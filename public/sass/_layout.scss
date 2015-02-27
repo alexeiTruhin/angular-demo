@@ -18,13 +18,13 @@
   width: 100%;
 
   th, td {
-    border: 1px solid #e3e4e8;
     @include scale(width, 150px);
+    @include background-clip(padding-box);
+    border: 1px solid #e3e4e8;
   }
 
   th {
     @include scale(font-size, 14px);
-    @include background-clip(padding-box);
     border-bottom: 2px solid #e3e4e8;
     background-color: #bec6cb;
     position: relative;
@@ -33,14 +33,19 @@
 
   td {
     @include scale(padding, 10px);
+    position: relative;
+    a {
+      color: #005696;
+      text-decoration: none;
+    }
   }
 
   tr {
     &:nth-child(2n + 1) td{
-      background: #eaeff2;
+      background-color: #eaeff2;
     }
     &:nth-child(2n) td{
-      background: #fff;
+      background-color: #fff;
     }
   }
   th:first-child, td:first-child {
@@ -425,6 +430,95 @@
     width: auto
   }
 }
+
+/* PSG product details */
+.psg-product-details {
+  @include background-clip(padding-box);
+  @include scale(padding, 10px 20px);
+  @include scale(top, 20px);
+  @include scale(width, 350px);
+  background-color: #fff;
+  border: 2px solid rgba(#000, 0.3);
+  color: #005696;
+  display: none;
+  left: 100%;
+  position: absolute;
+  z-index: 12;
+
+  h3 {
+    @include scale(font-size, 21px);
+    @include scale(padding, 6px 0 8px);
+    font-weight: normal;
+  }
+
+  ul {
+    li {
+      @include scale(padding, 8px 0);
+    }
+    a {
+      @include scale(font-size, 18px);
+
+      color: #005696;
+      text-decoration: none;
+      &:before {
+        @include psg-icons;
+        @include scale(font-size, 32px);
+        @include scale(top, 6px);
+        @include scale(padding-right, 8px);
+        @include scale(width, 48px);
+        display: inline-block;
+        text-align: center;
+        position: relative;
+      }
+
+      &.psg-product-det-datasheet {
+        &:before {
+          @extend %doc_icon;
+        }
+      }
+
+      &.psg-product-det-info {
+        &:before {
+          @extend %info_icon;
+        }
+      }
+
+      &.psg-product-det-buy {
+        &:before {
+          @extend %cart_icon;
+        }
+      }
+
+      &.psg-product-det-tools {
+        &:before {
+          @extend %tools_icon;
+
+        }
+      }
+    }
+  }
+}
+
+.psg-product-det-wrapper {
+  position: relative;
+  .psg-product-det-close {
+    @include scale(padding, 4px);
+    @include scale(right, -16px);
+    @include scale(top, -6px);
+    cursor: pointer;
+    position: absolute;
+    text-decoration: none;
+    z-index: 13;
+
+    &:before {
+      @include psg-icons;
+      @include scale(font-size, 18px);
+      @extend %remove_icon;
+      color: #a3a3a3;
+    }
+  }
+}
+
 
 
 /* Scrollable */

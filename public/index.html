@@ -116,8 +116,20 @@
               <td>
                 <label>
                   <input type="checkbox" ng-click="selectProduct(product[_id])" ng-checked="product[_selected]" ng-disabled="param[_selected]"/>
-                  {{product[_name]}}
                 </label>
+                <a href class="psg-product-link" ng-click="toggleAllProductDetails($event)">{{product[_name]}}</a>
+                <div class="psg-product-details">
+                  <div class="psg-product-det-wrapper">
+                    <a href class="psg-product-det-close" ng-click="toggleAllProductDetails()"></a>
+                    <h3>{{product[_name]}}</h3>
+                    <ul>
+                      <li><a class="psg-product-det-datasheet" href="#">Datasheet</a></li>
+                      <li><a class="psg-product-det-info" href="#">Product Information</a></li>
+                      <li><a class="psg-product-det-buy" href="#">Sample &amp; Buy</a></li>
+                      <li><a class="psg-product-det-tools" href="#">Tools &amp; Software</a></li>
+                    </ul>
+                  </div>
+                </div>
               </td>
               <td ng-repeat="facet in data.facetShow">
                   {{product[facet]}}

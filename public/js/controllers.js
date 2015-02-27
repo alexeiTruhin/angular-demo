@@ -510,6 +510,23 @@ psgControllers.controller('psgCtrl', ['$scope', '$timeout', 'Data', '$location',
       $scope.updateUrl();
     }
 
+    $scope.toggleAllProductDetails = function (e) {
+      $('.psg-product-details').hide();
+      if (typeof e !== 'undefined') {
+        var $block = $(e.currentTarget).parent().find('.psg-product-details');
+        $block.toggle();
+
+        var $tr_all = $(e.currentTarget).parent().parent().parent().children();
+        var $tr_this = $(e.currentTarget).parent().parent();
+        var index_this = $tr_all.index($tr_this);
+
+        if (index_this > $tr_all.length/2) {
+          $block.css('bottom', 0);
+          $block.css('top', 'auto');
+        }
+      }
+    }
+
     /* jQuery part */
     $(document).ready(function() {
 
