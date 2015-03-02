@@ -6,7 +6,6 @@
   @include scale(max-width, 1024px);
   color: #47515b;
   position: relative;
-  overflow-x: auto;
 }
 
 
@@ -21,6 +20,13 @@
     @include scale(width, 150px);
     @include background-clip(padding-box);
     border: 1px solid #e3e4e8;
+    input[type=checkbox] {
+      @include scale(height, 10px);
+      margin: 0;
+      overflow: hidden;
+
+    }
+    overflow: hidden;
   }
 
   th {
@@ -522,29 +528,29 @@
 
 
 /* Scrollable */
-.psg-pretable {
-  .scrollable {
-    position: relative;
-    overflow: scroll;
-    .psg-table {
-      margin-left: 151px;
-      th, td {
-        width: 250px;
-        height: 100px;
+.psg-pretable.scrollable {
+  position: relative;
+  overflow-x: scroll;
+  @include scale(max-height, 600px);
+  .psg-table {
+    @include scale(margin-left, 220px);
 
-        &:first-child {
-          background: #fff;
-          left: 0;
-          margin: 0;
-          padding: 0;
-          position: absolute;
-          width: 150px;
-        }
-      }
+    th, td {
 
-      th:first-child {
-        background: #ccc;
+      @include scale(width, 150px);
+
+      &:first-child {
+        @include scale(width, 220px);
+
+        left: 0;
+
+        position: absolute;
+        z-index: 13;
       }
+    }
+
+    th:first-child {
+      top: -1px;
     }
   }
 

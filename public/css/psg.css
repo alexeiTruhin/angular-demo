@@ -196,7 +196,6 @@ a[href*='mailto:'] {
   max-width: 64rem;
   color: #47515b;
   position: relative;
-  overflow-x: auto;
 }
 
 .psg-table {
@@ -214,6 +213,13 @@ a[href*='mailto:'] {
   -webkit-background-clip: padding;
   background-clip: padding-box;
   border: 1px solid #e3e4e8;
+  overflow: hidden;
+}
+.psg-table th input[type=checkbox], .psg-table td input[type=checkbox] {
+  height: 10px;
+  height: 0.625rem;
+  margin: 0;
+  overflow: hidden;
 }
 .psg-table th {
   font-size: 14px;
@@ -779,27 +785,29 @@ a[href*='mailto:'] {
 }
 
 /* Scrollable */
-.psg-pretable .scrollable {
+.psg-pretable.scrollable {
   position: relative;
-  overflow: scroll;
+  overflow-x: scroll;
+  max-height: 600px;
+  max-height: 37.5rem;
 }
-.psg-pretable .scrollable .psg-table {
-  margin-left: 151px;
+.psg-pretable.scrollable .psg-table {
+  margin-left: 220px;
+  margin-left: 13.75rem;
 }
-.psg-pretable .scrollable .psg-table th, .psg-pretable .scrollable .psg-table td {
-  width: 250px;
-  height: 100px;
-}
-.psg-pretable .scrollable .psg-table th:first-child, .psg-pretable .scrollable .psg-table td:first-child {
-  background: #fff;
-  left: 0;
-  margin: 0;
-  padding: 0;
-  position: absolute;
+.psg-pretable.scrollable .psg-table th, .psg-pretable.scrollable .psg-table td {
   width: 150px;
+  width: 9.375rem;
 }
-.psg-pretable .scrollable .psg-table th:first-child {
-  background: #ccc;
+.psg-pretable.scrollable .psg-table th:first-child, .psg-pretable.scrollable .psg-table td:first-child {
+  width: 220px;
+  width: 13.75rem;
+  left: 0;
+  position: absolute;
+  z-index: 13;
+}
+.psg-pretable.scrollable .psg-table th:first-child {
+  top: -1px;
 }
 
 /* RangeSlider */

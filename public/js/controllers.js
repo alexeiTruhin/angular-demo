@@ -162,6 +162,7 @@ psgControllers.controller('psgCtrl', ['$scope', '$timeout', 'Data', '$location',
         addCheckboxes($scope.data.facets, $scope.param);
         addSelected($scope.data.products, $scope.param);
 
+        addScrollable();
       });
     }
 
@@ -528,11 +529,20 @@ psgControllers.controller('psgCtrl', ['$scope', '$timeout', 'Data', '$location',
     }
 
     /* jQuery part */
-    $(document).ready(function() {
 
+    function addScrollable() {
+      $timeout(function() {
+        if ($('.psg-pretable').width() < $('.psg-table').width()) {
+          $('.psg-pretable').addClass('scrollable');
+        } else {
+          $('.psg-table').removeClass('scrollable');
+        }
 
-
-    })
+        $('.psg-pretable').on('scroll', function() {
+          $('.psg-table th:first-child, .psg-table td:first-child').css('left', $('.psg-pretable').scrollLeft())
+        });
+      }, 0)
+    }
 
   }]);
 
