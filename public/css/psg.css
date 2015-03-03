@@ -198,9 +198,14 @@ a[href*='mailto:'] {
   position: relative;
 }
 
-.psg-table {
+.psg-pretable {
   border: 2px solid #e3e4e8;
-  border-collapse: collapse;
+  overflow-x: scroll;
+}
+
+.psg-table {
+  border: 0;
+  border-collapse: separate;
   margin: 0 auto;
   table-layout: fixed;
   width: 100%;
@@ -213,11 +218,10 @@ a[href*='mailto:'] {
   -webkit-background-clip: padding;
   background-clip: padding-box;
   border: 1px solid #e3e4e8;
-  overflow: hidden;
 }
 .psg-table th input[type=checkbox], .psg-table td input[type=checkbox] {
-  height: 10px;
-  height: 0.625rem;
+  margin-right: 8px;
+  margin-right: 0.5rem;
   margin: 0;
   overflow: hidden;
 }
@@ -225,6 +229,7 @@ a[href*='mailto:'] {
   font-size: 14px;
   font-size: 0.875rem;
   border-bottom: 2px solid #e3e4e8;
+  border-top: 0;
   background-color: #bec6cb;
   position: relative;
   vertical-align: top;
@@ -245,8 +250,10 @@ a[href*='mailto:'] {
   background-color: #fff;
 }
 .psg-table th:first-child, .psg-table td:first-child {
-  width: 195px;
-  width: 12.1875rem;
+  width: 220px;
+  width: 13.75rem;
+  z-index: 15;
+  border-left: 0;
 }
 .psg-table th:first-child .psg-facet-body, .psg-table td:first-child .psg-facet-body {
   padding: 0 14px 14px;
@@ -256,6 +263,9 @@ a[href*='mailto:'] {
   min-height: 58px;
   min-height: 3.625rem;
   text-align: center;
+}
+.psg-table th:last-child, .psg-table td:last-child {
+  border-right: 0;
 }
 .psg-table .psg-facet-top {
   height: 23px;
@@ -710,6 +720,8 @@ a[href*='mailto:'] {
   background-clip: padding-box;
   padding: 10px 20px;
   padding: 0.625rem 1.25rem;
+  margin-left: 2px;
+  margin-left: 0.125rem;
   top: 20px;
   top: 1.25rem;
   width: 350px;

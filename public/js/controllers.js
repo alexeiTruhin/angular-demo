@@ -162,7 +162,7 @@ psgControllers.controller('psgCtrl', ['$scope', '$timeout', 'Data', '$location',
         addCheckboxes($scope.data.facets, $scope.param);
         addSelected($scope.data.products, $scope.param);
 
-        addScrollable();
+        emitScrollable();
       });
     }
 
@@ -495,6 +495,10 @@ psgControllers.controller('psgCtrl', ['$scope', '$timeout', 'Data', '$location',
         $scope.tempFacetHide.push(facet);
       }
 
+      // update
+      $scope.param[_facetShow] = $scope.tempFacetShow.slice();
+      $scope.url = $scope.updateUrl();
+
     }
 
     $scope.toggleFacetsBlock = function () {
@@ -532,17 +536,27 @@ psgControllers.controller('psgCtrl', ['$scope', '$timeout', 'Data', '$location',
 
     function addScrollable() {
       $timeout(function() {
-        if ($('.psg-pretable').width() < $('.psg-table').width()) {
-          $('.psg-pretable').addClass('scrollable');
-        } else {
-          $('.psg-table').removeClass('scrollable');
-        }
+        var $psgPretable = $('.psg-pretable');
+        var $psgTable = $('.psg-table');
 
-        $('.psg-pretable').on('scroll', function() {
-          $('.psg-table th:first-child, .psg-table td:first-child').css('left', $('.psg-pretable').scrollLeft())
+
+        $psgPretable.on('scroll', function() {
+          $psgTable.find('th:first-child, td:first-child').css('left', $psgPretable.scrollLeft());
         });
       }, 0)
     }
+
+    function emitScrollable() {
+      $timeout(function() {
+        var $psgPretable = $('.psg-pretable');
+        var $psgTable = $('.psg-table');
+        $psgTable.find('th:first-child, td:first-child').css('left', $psgPretable.scrollLeft());
+      }, 0)
+    }
+
+    $(document).ready(function() {
+      addScrollable();
+    });
 
   }]);
 

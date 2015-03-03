@@ -8,10 +8,14 @@
   position: relative;
 }
 
+.psg-pretable {
+  border: 2px solid #e3e4e8;
+  overflow-x: scroll;
+}
 
 .psg-table {
-  border: 2px solid #e3e4e8;
-  border-collapse: collapse;
+  border: 0;
+  border-collapse: separate;
   margin: 0 auto;
   table-layout: fixed;
   width: 100%;
@@ -21,17 +25,17 @@
     @include background-clip(padding-box);
     border: 1px solid #e3e4e8;
     input[type=checkbox] {
-      @include scale(height, 10px);
+      @include scale(margin-right, 8px);
       margin: 0;
       overflow: hidden;
 
     }
-    overflow: hidden;
   }
 
   th {
     @include scale(font-size, 14px);
     border-bottom: 2px solid #e3e4e8;
+    border-top: 0;
     background-color: #bec6cb;
     position: relative;
     vertical-align: top;
@@ -55,7 +59,9 @@
     }
   }
   th:first-child, td:first-child {
-    @include scale(width, 195px);
+    @include scale(width, 220px);
+    z-index: 15;
+    border-left: 0;
     .psg-facet-body {
       @include scale(padding, 0 14px 14px);
     }
@@ -63,6 +69,9 @@
       @include scale(min-height, 58px);
       text-align: center;
     }
+  }
+  th:last-child, td:last-child {
+    border-right: 0;
   }
   // ------------------
 
@@ -441,6 +450,7 @@
 .psg-product-details {
   @include background-clip(padding-box);
   @include scale(padding, 10px 20px);
+  @include scale(margin-left, 2px);
   @include scale(top, 20px);
   @include scale(width, 350px);
   background-color: #fff;
