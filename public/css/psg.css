@@ -192,15 +192,15 @@ a[href*='mailto:'] {
   font-size: 0.75rem;
   margin-top: 60px;
   margin-top: 3.75rem;
-  max-width: 1024px;
-  max-width: 64rem;
   color: #47515b;
   position: relative;
 }
 
 .psg-pretable {
+  max-height: 600px;
+  max-height: 37.5rem;
   border: 2px solid #e3e4e8;
-  overflow-x: scroll;
+  overflow-x: auto;
 }
 
 .psg-table {
@@ -220,10 +220,13 @@ a[href*='mailto:'] {
   border: 1px solid #e3e4e8;
 }
 .psg-table th input[type=checkbox], .psg-table td input[type=checkbox] {
-  margin-right: 8px;
-  margin-right: 0.5rem;
+  top: 1px;
+  top: 0.0625rem;
+  left: -1px;
+  left: -0.0625rem;
   margin: 0;
   overflow: hidden;
+  position: relative;
 }
 .psg-table th {
   font-size: 14px;
@@ -233,6 +236,7 @@ a[href*='mailto:'] {
   background-color: #bec6cb;
   position: relative;
   vertical-align: top;
+  z-index: 14;
 }
 .psg-table td {
   padding: 10px;
@@ -252,7 +256,7 @@ a[href*='mailto:'] {
 .psg-table th:first-child, .psg-table td:first-child {
   width: 220px;
   width: 13.75rem;
-  z-index: 15;
+  z-index: 13;
   border-left: 0;
 }
 .psg-table th:first-child .psg-facet-body, .psg-table td:first-child .psg-facet-body {
@@ -266,6 +270,12 @@ a[href*='mailto:'] {
 }
 .psg-table th:last-child, .psg-table td:last-child {
   border-right: 0;
+}
+.psg-table th:first-child {
+  z-index: 15;
+}
+.psg-table td:first-child {
+  z-index: 14;
 }
 .psg-table .psg-facet-top {
   height: 23px;
@@ -320,7 +330,7 @@ a[href*='mailto:'] {
   min-height: 220px;
   min-height: 13.75rem;
   position: relative;
-  z-index: 3;
+  z-index: 10;
 }
 .psg-table .psg-facet-title {
   font-size: 14px;
@@ -597,7 +607,7 @@ a[href*='mailto:'] {
   border: 4px solid rgba(0, 0, 0, 0.3);
   display: none;
   position: absolute;
-  z-index: 12;
+  z-index: 16;
 }
 .psg-facets-block h3 {
   font-size: 16px;
@@ -621,7 +631,7 @@ a[href*='mailto:'] {
   cursor: pointer;
   position: absolute;
   text-decoration: none;
-  z-index: 13;
+  z-index: 12;
 }
 .psg-facets-wrapper .psg-facets-close:before {
   font-family: 'psg-icons';
@@ -732,7 +742,7 @@ a[href*='mailto:'] {
   display: none;
   left: 100%;
   position: absolute;
-  z-index: 12;
+  z-index: 17;
 }
 .psg-product-details h3 {
   font-size: 21px;
@@ -783,7 +793,7 @@ a[href*='mailto:'] {
   cursor: pointer;
   position: absolute;
   text-decoration: none;
-  z-index: 13;
+  z-index: 12;
 }
 .psg-product-det-wrapper .psg-product-det-close:before {
   font-family: 'psg-icons';
@@ -796,38 +806,39 @@ a[href*='mailto:'] {
   color: #a3a3a3;
 }
 
-/* Scrollable */
-.psg-pretable.scrollable {
-  position: relative;
-  overflow-x: scroll;
-  max-height: 600px;
-  max-height: 37.5rem;
-}
-.psg-pretable.scrollable .psg-table {
-  margin-left: 220px;
-  margin-left: 13.75rem;
-}
-.psg-pretable.scrollable .psg-table th, .psg-pretable.scrollable .psg-table td {
-  width: 150px;
-  width: 9.375rem;
-}
-.psg-pretable.scrollable .psg-table th:first-child, .psg-pretable.scrollable .psg-table td:first-child {
-  width: 220px;
-  width: 13.75rem;
-  left: 0;
-  position: absolute;
-  z-index: 13;
-}
-.psg-pretable.scrollable .psg-table th:first-child {
-  top: -1px;
-}
-
 /* RangeSlider */
 .ngrs-range-slider .ngrs-runner,
 .ngrs-range-slider .ngrs-handle,
 .ngrs-range-slider .ngrs-handle i,
 .ngrs-range-slider .ngrs-join {
   cursor: default;
+}
+
+/* Loading */
+.psg-loading {
+  background: rgba(0, 0, 0, 0.5);
+  height: 100%;
+  position: absolute;
+  width: 100%;
+  z-index: 21;
+}
+.psg-loading span {
+  font-size: 16px;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #fff;
+  display: block;
+  position: relative;
+  top: 50%;
+  bottom: 0%;
+}
+
+.psg-loading-wrapper {
+  position: absolute;
+  bottom: 50%;
+  top: 50%;
+  text-align: center;
+  width: 100%;
 }
 
 /*# sourceMappingURL=psg.css.map */

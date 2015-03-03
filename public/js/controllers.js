@@ -16,7 +16,8 @@ psgControllers.controller('psgCtrl', ['$scope', '$timeout', 'Data', '$location',
     _order = '_order',
     _$psgTable = '.psg-table',
     _$psgFacetsList = '.psg-facets-list',
-    _$psgFacetsBlock = '.psg-facets-block';
+    _$psgFacetsBlock = '.psg-facets-block',
+    _$psgLoading = '.psg-loading';
 
     $scope._facetShow = _facetShow;
     $scope._selected = _selected;
@@ -26,6 +27,7 @@ psgControllers.controller('psgCtrl', ['$scope', '$timeout', 'Data', '$location',
     $scope._name = _name;
     $scope._$psgTable = _$psgTable;
     $scope._$psgFacetsList = _$psgFacetsList;
+    $scope._$psgLoading = _$psgLoading;
     // -------------------------------------------- //
 
 
@@ -121,6 +123,7 @@ psgControllers.controller('psgCtrl', ['$scope', '$timeout', 'Data', '$location',
 
     function getData(url) {
       // $scope.data.<products,facets,facetShow>
+      $(_$psgLoading).show();
       Data.get({url: url}, function(data) {
 /*        // Add 'id' as facet
         data.facets[_id] = {"name": "Part Number"};
@@ -163,6 +166,7 @@ psgControllers.controller('psgCtrl', ['$scope', '$timeout', 'Data', '$location',
         addSelected($scope.data.products, $scope.param);
 
         emitScrollable();
+        $(_$psgLoading).hide();
       });
     }
 
@@ -543,6 +547,10 @@ psgControllers.controller('psgCtrl', ['$scope', '$timeout', 'Data', '$location',
         $psgPretable.on('scroll', function() {
           $psgTable.find('th:first-child, td:first-child').css('left', $psgPretable.scrollLeft());
         });
+
+        $psgPretable.on('scroll', function() {
+          $psgTable.find('th').css('top', $psgPretable.scrollTop());
+        });
       }, 0)
     }
 
@@ -556,6 +564,12 @@ psgControllers.controller('psgCtrl', ['$scope', '$timeout', 'Data', '$location',
 
     $(document).ready(function() {
       addScrollable();
+
+      var progressbar = $( ".psg-loading span" );
+
+      progressbar.progressbar({
+        value: false
+      });
     });
 
   }]);
