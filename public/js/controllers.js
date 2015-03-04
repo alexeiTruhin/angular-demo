@@ -1,5 +1,6 @@
 'use strict';
 
+(function($){
 /* Controllers */
 
 var psgControllers = angular.module('psgControllers', []);
@@ -564,13 +565,10 @@ psgControllers.controller('psgCtrl', ['$scope', '$timeout', 'Data', '$location',
 
     $(document).ready(function() {
       addScrollable();
-
-      var progressbar = $( ".psg-loading span" );
-
-      progressbar.progressbar({
-        value: false
-      });
     });
 
-  }]);
+  }
+]);
 
+
+})(jQuery);

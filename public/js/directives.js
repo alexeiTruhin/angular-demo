@@ -1,5 +1,6 @@
 'use strict';
 
+(function($){
 /* Services */
 
 var psgDirectives = angular.module('psgDirectives', []);
@@ -294,4 +295,4 @@ psgDirectives.directive('dragbleTable',['$compile', '$timeout', function($compil
   }
 }]);
 
-
+})(jQuery);
