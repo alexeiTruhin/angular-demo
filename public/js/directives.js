@@ -53,7 +53,7 @@ psgDirectives.directive('applyFilters',['$compile', '$timeout', function($compil
       template_facetName +
       '<p ng-repeat="option in data.facets[facet].options">' +
         '<label>' +
-          '<input type="checkbox" ng-click="toggleParam(facet, option[0], data.facets[facet].filterView)" ng-checked="option[2]"/>' +
+          '<input type="checkbox" ng-click="toggleParam(facet, option[0], data.facets[facet].filterView)" ng-checked="option[2]" ng-disabled="option[1] === \'0\'"/>' +
           '{{option[0]}} <span class="psg-result-number">({{option[1]}})</span>' +
         '</label>' +
       '</p>' +

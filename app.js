@@ -100,7 +100,7 @@ function filterData(data, params) {
   if (typeof params['_order'] !== 'undefined') {
     var facet = params['_order'][0];
     var order = params['_order'][1];
-    if (typeof data.facets[facet] !== 'undefined') {
+    if (typeof data.facets[facet] !== 'undefined' || facet === 'name') {
         data.products.sort(function(a, b) {
           return a[facet] > b[facet];
         });
