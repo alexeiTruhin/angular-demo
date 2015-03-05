@@ -118,7 +118,13 @@ psgControllers.controller('psgCtrl', ['$scope', '$timeout', 'Data', '$location',
         $scope.url = $scope.url.substring(0, $scope.url.length - 1);
       }
 
-      $location.url('?' + $scope.url);
+      if ($scope.url) {
+        $location.url('?' + $scope.url);
+      } else {
+        // reload page
+        window.location.href = window.location.href.split('#')[0]
+      }
+
       return $scope.url;
     };
 

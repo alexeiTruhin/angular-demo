@@ -253,6 +253,9 @@ a[href*='mailto:'] {
 .psg-table tr:nth-child(2n) td {
   background-color: #fff;
 }
+.psg-table tr:nth-child(2) td {
+  overflow: hidden;
+}
 .psg-table th:first-child, .psg-table td:first-child {
   width: 220px;
   width: 13.75rem;
@@ -561,6 +564,10 @@ a[href*='mailto:'] {
 .ngrs-join {
   left: 50% !important;
   right: 50% !important;
+}
+
+.ngrs-value {
+  display: none;
 }
 
 .psg-range-slider-block {

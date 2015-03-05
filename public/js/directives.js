@@ -262,7 +262,6 @@ psgDirectives.directive('dragbleTable',['$compile', '$timeout', function($compil
   return {
     restrict: 'C',
     link: function (scope, element, attr) {
-
       $(_$psgTable).sorttable({
           items: '>:not(.nodrag)',
           handle: '.draghandle', // drag using handle
@@ -289,6 +288,7 @@ psgDirectives.directive('dragbleTable',['$compile', '$timeout', function($compil
             scope.changefacetShow(facetShow);
           }
       });
+
 
 
     }

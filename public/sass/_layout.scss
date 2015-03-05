@@ -60,6 +60,11 @@
       background-color: #fff;
     }
   }
+  tr {
+    &:nth-child(2) td {
+      overflow: hidden;
+    }
+  }
   th:first-child, td:first-child {
     @include scale(width, 220px);
     z-index: 13;
@@ -319,6 +324,10 @@
 .ngrs-join {
   left: 50% !important;
   right: 50% !important;
+}
+
+.ngrs-value {
+  display: none;
 }
 
 .psg-range-slider-block {
