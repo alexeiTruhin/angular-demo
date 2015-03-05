@@ -599,3 +599,16 @@
   width: 100%;
 }
 
+/* Pagination */
+.psg-pagination {
+  @include scale(padding, 12px 0);
+  text-align: center;
+  span {
+    @include scale(padding, 0 16px);
+  }
+  a {
+    color: #005696;
+    text-decoration: none;
+  }
+}
+

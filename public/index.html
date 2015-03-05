@@ -149,6 +149,18 @@
             </tr>
           </table>
         </div>
+
+        <div class="psg-pagination">
+          <span ng-if="data.pageNumber && data.pageNumber > 1">
+            <a href ng-click="getPrevPage()"> Prev </a>
+          </span>
+          <span ng-if="data.pageNumber && data.pageNumber < data.pageTotal">
+            <a href ng-click="getNextPage()"> Next </a>
+          </span>
+          <span>
+            <a href ng-click="getAllPages()"> Show all pages </a>
+          </span>
+        </div>
       </div>
     </div>
   </div>

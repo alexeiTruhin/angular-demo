@@ -858,4 +858,19 @@ a[href*='mailto:'] {
   width: 100%;
 }
 
+/* Pagination */
+.psg-pagination {
+  padding: 12px 0;
+  padding: 0.75rem 0;
+  text-align: center;
+}
+.psg-pagination span {
+  padding: 0 16px;
+  padding: 0 1rem;
+}
+.psg-pagination a {
+  color: #005696;
+  text-decoration: none;
+}
+
 /*# sourceMappingURL=psg.css.map */

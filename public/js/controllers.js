@@ -12,6 +12,7 @@ psgControllers.controller('psgCtrl', ['$scope', '$timeout', 'Data', '$location',
     _rangeSlider = 'rangeSlider',
     _facetShow = '_facetShow',
     _selected = '_selected',
+    _page = '_page',
     _id = 'id',
     _name = 'name',
     _order = '_order',
@@ -145,12 +146,15 @@ psgControllers.controller('psgCtrl', ['$scope', '$timeout', 'Data', '$location',
         transformValuesToString(data.facetShow);
         transformValuesToString(data.facetAll);
         transformValuesToString(data.id);
-        transformValuesToString(data.tatalCount);
+        transformValuesToString(data.totalCount);
 
         // status and error
         $scope.data.status = Number(data.status) || 0;
         $scope.data.error = data.error || '';
 
+        // page number
+        $scope.data.pageTotal = Number(data.pageTotal) || 0;
+        $scope.data.pageNumber = Number(data.pageNumber) || 0;
 
         $scope.data.products = data.products;
         $scope.data.facets = data.facets;
@@ -547,6 +551,24 @@ psgControllers.controller('psgCtrl', ['$scope', '$timeout', 'Data', '$location',
         }
       }
     }
+
+    $scope.getPrevPage = function () {
+      $scope.param[_page] = [];
+      $scope.param[_page].push($scope.data.pageNumber - 1 + '');
+      $scope.url = $scope.updateUrl();
+    }
+
+    $scope.getNextPage = function () {
+      $scope.param[_page] = [];
+      $scope.param[_page].push($scope.data.pageNumber + 1 + '');
+      $scope.url = $scope.updateUrl();
+    }
+
+    $scope.getAllPages = function () {
+      $scope.param[_page] = ['all'];
+      $scope.url = $scope.updateUrl();
+    }
+
 
     /* jQuery part */
 
