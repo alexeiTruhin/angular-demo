@@ -109,9 +109,13 @@ psgControllers.controller('psgCtrl', ['$scope', '$timeout', 'Data', '$location',
     $scope.updateUrl = function updateUrl() {
       $scope.url = '';
       var p;
+      var i;
       for (p in $scope.param) {
         if ($scope.param[p].length) {
-          $scope.url += p + '=' + $scope.param[p].join(',') + '&';
+          //$scope.url += p + '=' + $scope.param[p].join(',') + '&';
+          for (i = 0; i < $scope.param[p].length; i++) {
+            $scope.url += p + '=' + $scope.param[p][i] + '&';
+          }
         }
       }
 
@@ -132,6 +136,7 @@ psgControllers.controller('psgCtrl', ['$scope', '$timeout', 'Data', '$location',
     function getData(url) {
       // $scope.data.<products,facets,facetShow>
       $(_$psgLoading).show();
+      url = url.split('=').join('[]=');
       Data.get({url: url}, function(data) {
 /*        // Add 'id' as facet
         data.facets[_id] = {"name": "Part Number"};
@@ -312,11 +317,10 @@ psgControllers.controller('psgCtrl', ['$scope', '$timeout', 'Data', '$location',
       var p;
 
       for (p in locParam) {
-        locParam[p] = locParam[p].split(',');
-/*        if (p === _facetShow) {
-          // add 'id' to facets
-          locParam[p] = [_id].concat(locParam[p]);
-        }*/
+        // locParam[p] = locParam[p].split(',');
+        if (typeof locParam[p] === 'string') {
+          locParam[p] = [locParam[p]];
+        }
       };
 
       // add checkbox: true to $scope.data.facetShow
