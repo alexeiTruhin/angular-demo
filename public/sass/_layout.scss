@@ -26,7 +26,7 @@
     border: 1px solid #e3e4e8;
     input[type=checkbox] {
       @include scale(top, 1px);
-      @include scale(left, -1px);
+      @include scale(left, -2px);
       margin: 0;
       overflow: hidden;
       position: relative;
@@ -41,6 +41,10 @@
     position: relative;
     vertical-align: top;
     z-index: 14;
+
+    p {
+      @include scale(padding, 2px 0);
+    }
   }
 
   td {
@@ -563,8 +567,9 @@
 }
 
 
-/* Loading */
+/* Loading & error */
 
+.psg-error,
 .psg-loading {
   background: rgba(#000, .5);
   height: 100%;
@@ -572,17 +577,20 @@
   width: 100%;
   z-index: 21;
 
-  span {
+  h3 {
     @include scale(font-size, 16px);
     font-weight: bold;
     color: #fff;
-    display: block;
-    position: relative;
-    top: 50%;
-    bottom: 0%;
+  }
+
+  p {
+    @include scale(font-size, 16px);
+    font-weight: bold;
+    color: #fff;
   }
 }
 
+.psg-error-wrapper,
 .psg-loading-wrapper {
   position: absolute;
   bottom: 50%;
@@ -590,3 +598,4 @@
   text-align: center;
   width: 100%;
 }
+

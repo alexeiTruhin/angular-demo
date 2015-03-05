@@ -26,8 +26,15 @@
       <div class="psg">
         <div class="psg-loading">
           <div class="psg-loading-wrapper">
-            <!-- <img src="/images/loader.gif" alt="Loading"/> -->
-            <span>Loading...</span>
+            <p>Loading...</p>
+          </div>
+        </div>
+        <div class="psg-error" ng-hide="!data.status">
+          <div class="psg-error-wrapper">
+            <h3>The server encountered an error: </h3>
+            <p>
+              {{data.error}}
+            </p>
           </div>
         </div>
         <div class="psg-facets-block">

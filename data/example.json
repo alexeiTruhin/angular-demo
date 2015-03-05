@@ -154,7 +154,9 @@
   "id": {
     "name": "Products/Parts"
   },
-  "totalCount" : 8
+  "totalCount" : 8,
+  "error": "Some error",
+  "status": 0
 }
 
 

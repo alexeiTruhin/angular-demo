@@ -147,6 +147,11 @@ psgControllers.controller('psgCtrl', ['$scope', '$timeout', 'Data', '$location',
         transformValuesToString(data.id);
         transformValuesToString(data.tatalCount);
 
+        // status and error
+        $scope.data.status = Number(data.status) || 0;
+        $scope.data.error = data.error || '';
+
+
         $scope.data.products = data.products;
         $scope.data.facets = data.facets;
         $scope.data.facetAll = data.facetAll;
