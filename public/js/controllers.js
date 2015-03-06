@@ -79,6 +79,8 @@ psgControllers.controller('psgCtrl', ['$scope', '$timeout', 'Data', '$location',
     // change parameters from facet.
     // *used on facet's options click.
     $scope.toggleParam = function (facet, option, filterView) {
+      if (typeof $scope.param[_page] !== 'undefined' && $scope.param[_page] !== 'all') delete $scope.param[_page];
+
       // if param[facet] doesn't exist, init with an empty array
       if (typeof $scope.param[facet] === 'undefined') {
         $scope.param[facet] = [];
@@ -112,7 +114,11 @@ psgControllers.controller('psgCtrl', ['$scope', '$timeout', 'Data', '$location',
       var i;
       for (p in $scope.param) {
         if ($scope.param[p].length) {
-          //$scope.url += p + '=' + $scope.param[p].join(',') + '&';
+          if (p[0] === '_') {
+            $scope.url += p + '=' + $scope.param[p].join(',') + '&';
+            continue;
+          }
+
           for (i = 0; i < $scope.param[p].length; i++) {
             $scope.url += p + '=' + $scope.param[p][i] + '&';
           }
@@ -136,8 +142,17 @@ psgControllers.controller('psgCtrl', ['$scope', '$timeout', 'Data', '$location',
     function getData(url) {
       // $scope.data.<products,facets,facetShow>
       $(_$psgLoading).show();
-      url = url.split('=').join('[]=');
+      var p;
+      p = url.split('&');
+      p.forEach(function(item, index) {
+        if (item[0] !== '_') {
+          p[index] = item.split('=').join('[]=');
+        };
+      });
+
+      url = p.join('&');
       Data.get({url: url}, function(data) {
+        console.log(data);
 /*        // Add 'id' as facet
         data.facets[_id] = {"name": "Part Number"};
         data.facetShow = [_id].concat(data.facetShow);
@@ -167,7 +182,7 @@ psgControllers.controller('psgCtrl', ['$scope', '$timeout', 'Data', '$location',
         $scope.data.id = data.id;
         $scope.data.totalCount = data.totalCount;
 
-        if (typeof $scope.param[_facetShow] !== 'undefined') {
+/*        if (typeof $scope.param[_facetShow] !== 'undefined') {
           $scope.data.facetShow = $scope.param[_facetShow].slice();
           $scope.tempFacetShow = $scope.param[_facetShow].slice(); // copy the array not ref.
           $scope.tempFacetHide = $(data.facetAll).not($scope.param[_facetShow]).get();
@@ -175,7 +190,11 @@ psgControllers.controller('psgCtrl', ['$scope', '$timeout', 'Data', '$location',
           $scope.data.facetShow = data.facetShow;
           $scope.tempFacetShow = data.facetShow.slice(); // copy the array not ref.
           $scope.tempFacetHide = $(data.facetAll).not(data.facetShow).get();
-        }
+        }*/
+
+        $scope.data.facetShow = data.facetShow;
+        $scope.tempFacetShow = data.facetShow.slice(); // copy the array not ref.
+        $scope.tempFacetHide = $(data.facetAll).not(data.facetShow).get();
 
         // <facet1> : [{<option1Name>: <option1Count}, ... ]
         // =>
@@ -318,7 +337,7 @@ psgControllers.controller('psgCtrl', ['$scope', '$timeout', 'Data', '$location',
 
       for (p in locParam) {
         // locParam[p] = locParam[p].split(',');
-        if (typeof locParam[p] === 'string') {
+        if (typeof locParam[p] === 'string' || p[0] === '_') {
           locParam[p] = [locParam[p]];
         }
       };

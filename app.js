@@ -43,7 +43,8 @@ function filterData(data, params) {
       delete params[p];
     } else {
       params[p] = decodeURIComponent(params[p]);
-      params[p] = params[p].split(','); // transform string into array
+      if (typeof params[p] === 'string')
+        params[p] = params[p].split(','); // transform string into array
     }
   }
 
